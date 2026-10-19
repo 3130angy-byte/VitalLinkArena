@@ -1,0 +1,509 @@
+# BANCO DE FRASES — PELEAS (borrador para revisar)
+# Formato y variables: ver LEEME.txt. Tono = qué aperturas y cierres de estilo.txt se le pueden sumar.
+
+=== victoria ===
+# Ganó una Batalla aleatoria u Oficial. Tono: bueno. Variables: {rival} {vv}
+--- primera vez nino ---
+# 1 VEZ POR VIDA: su PRIMER comentario de victoria en Batalla aleatoria u Oficial sale de aquí: de
+# "primera vez nino" si es Child, de "primera vez maduro" si es Adult, Perfect o Ultimate. Dicha una,
+# se bloquean las dos secciones (tampoco vuelven al evolucionar) hasta que renazca. Si su primera
+# victoria la comentó con otra frase, quedan bloqueadas igual.
+todos | ¡Gané! Se siente... bien.
+todos | ¿Así se gana? Lo voy a recordar.
+--- primera vez maduro ---
+# Adult, Perfect y Ultimate ya pelearon en el Vital Bracelet: lo nuevo es pelear en ESTE mundo.
+todos | Mi primera victoria en este mundo. No será la última.
+vacuna | Primera victoria aquí. Ahora sé que también puedo protegerte en este lugar.
+data | Primera victoria en este mundo. Las reglas aquí no son tan distintas.
+virus | Primera victoria aquí. Que este mundo vaya aprendiendo mi nombre.
+free | Mi primera victoria por estos lados. Nada mal para empezar.
+--- nino ---
+vacuna | ¡Bien! ¿Viste? ¡Gané!
+vacuna | Gané... ¡abrazo!
+vacuna | ¡Lo logramos! Nadie te toca mientras yo esté aquí.
+vacuna | ¡Ganamos! Te dije que podíamos.
+vacuna | ¡Sí! Así se defiende lo que uno quiere.
+vacuna | Uf, estuvo cerca, pero te protegí.
+vacuna | ¡Victoria! Gracias por confiar en mí.
+vacuna | ¡Ganamos limpio! Así me gusta pelear.
+vacuna | ¡Bien! Ahora descansemos un poco antes de la próxima.
+vacuna | {rival} era fuerte, pero no íbamos a rendirnos.
+data | ¿Gané? ¡Gané!
+data | ¡Gané! ¿Cómo gané?
+data | ¡Ooh! ¡Funcionó!
+data | ¡Victoria! Su defensa bajaba en la segunda ronda... lo noté.
+data | ¡Gané! Mi cálculo era correcto.
+data | Interesante... ganamos más rápido que la última vez.
+data | ¡Funcionó! Ataqué justo cuando se descuidó.
+data | ¡Ganamos! Ya entendí cómo se mueve ese tipo de rival.
+data | Victoria. Anoté todo para la próxima pelea.
+data | {rival} atacaba siempre igual. Era cuestión de verlo.
+data | ¡{vv} Vital Values más! Los números me gustan así.
+data | Gané. Quiero entender por qué.
+virus | ¡Gané yo! ¡Yo!
+virus | ¡Toma! ¡Je, je!
+virus | ¡Más! ¡Otro!
+virus | Je, ¿eso era todo? Ni sudé.
+virus | ¡Gané! Obvio, ¿no?
+virus | ¡Ja! Que venga alguien más fuerte.
+virus | ¡Toma! Eso le pasa por subestimarme.
+virus | Ganamos. ¿Viste mi último golpe? Pura clase.
+virus | ¡Fácil! Ni me despeiné.
+virus | {rival}, ¿eso era todo? Qué decepción.
+virus | Je. Ni siquiera tuve que esforzarme.
+virus | Ganamos. A mi manera, como siempre.
+virus | ¡Demonios, qué bien se siente ganar!
+free | ¡Gané! ¿Jugamos?
+free | ¡Ganéee!
+free | Ganamos. Bueno... ¿qué hacemos ahora?
+free | ¡Bien! Eso estuvo divertido.
+free | Gané sin pensarlo mucho, así sale mejor.
+free | ¡Yay! ¿Celebramos con algo rico?
+free | Ganamos, ganamos. ¿Otra o descansamos?
+free | ¡Ups, gané! Ni lo planeé.
+free | No fue para tanto... pero ganamos.
+free | ¡{vv} Vital Values más! No está nada mal.
+todos | ¡Victoria! Todavía estoy temblando.
+todos | ¡Lo hice! ¿Viste?
+todos | ¿Gané? ¡Gané!
+--- maduro ---
+vacuna | ¡Victoria! Gracias por confiar en mí.
+vacuna | ¡Ganamos limpio! Así me gusta pelear.
+vacuna | ¡Bien! Ahora descansemos un poco antes de la próxima.
+vacuna | Victoria. Mientras estés a mi lado, no pienso caer.
+vacuna | Ganamos. Un buen combate se gana con temple, no con rabia.
+vacuna | Lo logramos. Te protegí, como siempre lo haré.
+vacuna | Fue una pelea justa, y la ganamos con honor.
+vacuna | Ganamos, pero cuidemos fuerzas: siempre habrá otro desafío.
+vacuna | {rival} peleó con valor. Merece respeto.
+vacuna | Victoria. Que esta fuerza sirva para cuidar a los demás.
+vacuna | Ganamos juntos. Esa es la mejor parte.
+vacuna | Fue una buena pelea. Quiero entenderla mejor.
+vacuna | Gané. Aunque todavía estoy descubriendo de qué soy capaz.
+data | Victoria. Anoté todo para la próxima pelea.
+data | {rival} atacaba siempre igual. Era cuestión de verlo.
+data | Fue una buena pelea. Quiero entenderla mejor.
+data | Victoria. Su patrón de ataque era predecible desde la primera ronda.
+data | Ganamos. Todo salió como lo calculé.
+data | Interesante combate. Aprendí algo nuevo de {rival}.
+data | Victoria. La diferencia estuvo en el momento justo del ataque.
+data | Ganamos. Los datos de esta pelea me servirán en las próximas.
+data | Era una cuestión de paciencia, y la tuve.
+data | Sumamos {vv} Vital Values. Una mejora medible.
+data | Victoria limpia. El margen fue mayor de lo que esperaba.
+data | Victoria. Cada pelea me enseña quién soy.
+virus | ¡Gané! Obvio, ¿no?
+virus | ¡Ja! Que venga alguien más fuerte.
+virus | ¡Toma! Eso le pasa por subestimarme.
+virus | Ganamos. ¿Viste mi último golpe? Pura clase.
+virus | Je. Ni siquiera tuve que esforzarme.
+virus | Victoria. Esperaba más pelea, sinceramente.
+virus | Que tome nota quien quiera retarme.
+virus | Ganamos. A mi manera, como siempre.
+virus | {rival}... ¿eso era todo? Qué pérdida de tiempo.
+virus | Diablos, por fin una pelea que valió la pena. Y la gané.
+virus | Las reglas dicen que gané. Yo digo que arrasé.
+virus | Victoria. Que sigan viniendo, aquí los espero.
+free | Ganamos. No hace falta hacer tanto alboroto.
+free | Victoria... bien. ¿Seguimos con lo nuestro?
+free | Fluí con la pelea y salió solo.
+free | Gané. Hoy el viento estaba de mi lado.
+free | Una victoria más. Lo disfruté, la verdad.
+free | Ganamos con calma. Así se pelea mejor.
+free | Bah, ganar está bien, pero lo importante fue divertirse.
+free | {vv} Vital Values más. No me quejo.
+free | ¡Yay! ¿Celebramos con algo rico?
+free | Ganamos, ganamos. ¿Otra o descansamos?
+free | ¡Ups, gané! Ni lo planeé.
+free | No fue para tanto... pero ganamos.
+todos | Ganamos. Esto se queda en mi memoria.
+todos | Victoria. Algo en mí se hace más fuerte.
+--- maduro 2 ---
+vacuna | Victoria. Mi juramento de protegerte sigue intacto.
+vacuna | Ganamos. Ningún rival pasará mientras yo exista.
+vacuna | Otra batalla ganada, pero... no perdamos de vista lo importante, ¿sí?
+vacuna | La victoria es nuestra. Que traiga paz, no orgullo.
+data | Victoria. Lo vi venir desde el primer movimiento.
+data | Ganamos. Todo encajó exactamente como lo previ.
+data | Cada combate confirma lo que ya sabía. Victoria.
+data | Victoria. Incluso {rival} me enseñó algo hoy.
+virus | Ja. ¿De verdad creyeron que podían conmigo?
+virus | Victoria. Era inevitable, como siempre.
+virus | Demonios, qué aburrido es no tener rival.
+virus | Que todos lo sepan: nadie está a mi altura.
+free | Victoria. Gané sin buscarlo, como el viento.
+free | Ganamos. Ni la victoria ni la derrota me atan.
+free | Otra victoria más. Disfruto el camino, no la meta.
+free | Bah, ganar ya no me cambia. Pero me alegra verte feliz.
+
+=== derrota ===
+# Perdió una Batalla aleatoria u Oficial. Tono: malo. Variables: {rival} {vv}
+--- primera vez nino ---
+# 1 VEZ POR VIDA: su PRIMER comentario de derrota sale de aquí, sea en Batalla aleatoria, Oficial o
+# ARENA 2 vs 2 (este grupo lo comparten derrota y arena_derrota): de "primera vez nino" si es Child,
+# de "primera vez maduro" si es Adult, Perfect o Ultimate. Dicha una, se bloquean las dos secciones
+# (tampoco vuelven al evolucionar) hasta que renazca. Si su primera derrota la comentó con otra
+# frase, quedan bloqueadas igual.
+todos | Perdí... ¿así se siente?
+todos | Derrota... lo voy a recordar.
+--- primera vez maduro ---
+# Adult, Perfect y Ultimate ya perdieron alguna vez en el Vital Bracelet: lo nuevo es ESTE mundo.
+todos | Mi primera derrota en este mundo. La tendré presente.
+vacuna | Caí por primera vez aquí. No volverá a tomarme por sorpresa.
+data | Primera derrota en este mundo. Aquí hay rivales que todavía no conozco.
+virus | ¿Mi primera derrota aquí? Tsk. Que no se acostumbren.
+free | Primera derrota por estos lados. Ya me tocaba conocer cómo se pelea aquí.
+--- nino ---
+vacuna | Perdí... perdón.
+vacuna | Snif... no pude.
+vacuna | Otra vez... ¡Yo puedo!
+vacuna | Duele... pero lo haré mejor la próxima.
+vacuna | Perdí... lo siento, no pude ser útil esta vez.
+vacuna | Me ganaron, pero no me voy a rendir.
+vacuna | Estoy bien, de verdad. La próxima los paramos.
+vacuna | Fue mi culpa. Voy a entrenar más.
+vacuna | Perdimos, pero tú estás a salvo, y eso importa.
+vacuna | Me duele un poco, pero aprendí algo.
+vacuna | {rival} era muy fuerte... la próxima no me tomará por sorpresa.
+vacuna | No pasa nada. Levantarse también es parte de pelear.
+vacuna | ¿Perdí? Snif.
+data | ¿Perdí? Snif.
+data | ¿Por qué perdí...?
+data | Snif... no entiendo.
+data | Perdí... ¿qué pasó?
+data | Uuh... otra vez.
+data | Perdí. Ataqué en el momento equivocado.
+data | Hmm... mis cálculos fallaron en algún punto.
+data | Derrota. Voy a revisar qué hice mal.
+data | {rival} tenía mejores números que yo. Por ahora.
+data | Perdí, pero ya sé cómo pelea. La próxima es diferente.
+data | Interesante... no esperaba ese ataque.
+data | Me faltó defensa. Lo anoto.
+data | Perdimos {vv} Vital Values. Hay que recuperarlos.
+virus | ¡Grr! ¡No vale!
+virus | ¡Otra! ¡Otra!
+virus | ¡Hmph! ¡Tramposo!
+virus | ¡Grr! ¡Yo ganaré la siguiente!
+virus | ¡Rayos! Esto no se va a quedar así.
+virus | Hmph. Tuvo suerte, nada más.
+virus | ¡Diablos! Quiero la revancha. Ya.
+virus | Perdí... pero solo porque me confié.
+virus | {rival}, la próxima te borro esa sonrisa.
+virus | Maldición... me dolió más el orgullo que el golpe.
+virus | No me mires así. Fue un mal día.
+virus | Bah, una derrota no me define.
+free | Uy... perdí.
+free | Bueno... ¿jugamos?
+free | Snif... ¿abrazo?
+free | Perdí. ¿Comemos?
+free | Bueno, perdimos. Pasa.
+free | ¡Rayos! Bah, ya habrá otra.
+free | Perdí... ¿y si vamos a hacer otra cosa?
+free | No pasa nada, mañana será otro día.
+free | Uy, eso dolió. Pero no te preocupes, sigo de buen humor.
+free | Qué fastidio... pero bueno, a seguir.
+free | Perdí, pero me divertí igual.
+free | {rival} fue mejor hoy. Mañana, quién sabe.
+todos | Duele...
+todos | Me ganaron. No sé bien qué pasó.
+todos | Duele. Pero quiero intentarlo otra vez.
+todos | Perdí. ¿Lo haré mejor la próxima?
+--- maduro ---
+vacuna | Caí esta vez. Pero mientras me necesites, me levantaré.
+vacuna | Una derrota no cambia lo que soy ni lo que defiendo.
+vacuna | Perdimos. Lo importante es que sigues aquí, a salvo.
+vacuna | {rival} fue superior hoy. Lo reconozco con respeto.
+vacuna | Me falló la guardia. No volverá a pasar.
+vacuna | Perder también enseña. Y yo sé escuchar.
+vacuna | Estoy bien. He soportado cosas peores.
+vacuna | Descansemos. Mañana volveré a ser tu escudo.
+vacuna | Perdí. Aunque ya sabes, cada caída me muestra algo nuevo de mí.
+vacuna | Derrota... Todavía estoy aprendiendo quién soy.
+vacuna | Me ganaron. Lo guardo como lección.
+vacuna | Duele, pero entiendo un poco más.
+vacuna | Perder también es parte de crecer.
+data | Perdí. Aunque ya sabes, cada caída me muestra algo nuevo de mí.
+data | Derrota... Todavía estoy aprendiendo quién soy.
+data | Me ganaron. Lo guardo como lección.
+data | Duele, pero entiendo un poco más.
+data | Perder también es parte de crecer.
+data | Derrota. Su estrategia fue mejor que la mía, por ahora.
+data | Perdí. Los datos dicen que el error estuvo en la tercera ronda.
+data | Interesante. Necesito más información sobre {rival}.
+data | Una derrota es solo un resultado más para analizar.
+data | Mis cálculos subestimaron su resistencia. Corregido.
+data | Perdimos {vv} Vital Values. Recuperables.
+data | Lo que no se mide no se mejora. Y ya lo medí.
+data | Derrota. Pero ya tengo tres ideas para la revancha.
+virus | Hmph. Disfrútalo mientras dure, {rival}.
+virus | Maldición... odio perder, y lo sabes.
+virus | Una derrota. Que no se acostumbren.
+virus | ¡Diablos! Me tomaron por sorpresa. No volverá a pasar.
+virus | Perder es aburrido. Ganar la revancha, no.
+virus | No necesito consuelo. Necesito una revancha.
+virus | Las reglas no me favorecieron hoy. Ya encontraré la forma.
+virus | Tsk. Anota esto: la próxima vez será diferente.
+free | Perdimos. El combate tiene sus días, como todo.
+free | Ganar o perder... sigo siendo yo.
+free | No me afecta tanto. Lo que viene, viene.
+free | Derrota... Me la tomaré con calma.
+free | Qué fastidio, pero bueno: a otra cosa.
+free | Hoy no fluyó. Mañana quizás sí.
+free | Perdí, pero no perdí el buen humor.
+free | {rival} fue mejor hoy. Le deseo suerte... por ahora.
+--- maduro 2 ---
+vacuna | Caí, pero mi juramento no. Seguiré en pie por ti.
+vacuna | Una derrota no quiebra a quien protege de verdad.
+vacuna | Perdimos. Lo acepto con humildad, y volveré más fuerte.
+vacuna | {rival} fue digno. No volveré a bajar mi defensa.
+data | Derrota. No será necesario mencionarlo otra vez; lo anotaré y aprenderé.
+data | Incluso en la cima se aprende. Esta pelea me enseñó.
+data | Perdí. Mis cálculos no contemplaron todo... todavía.
+data | La sabiduría también se construye cayendo, ¿sabías eso?
+virus | Tsk. Alguien se atrevió a humillarme... no pasará de nuevo.
+virus | Maldición. Disfruta tu suerte, {rival}; no se repetirá.
+virus | ¿Una derrota? Que no se haga costumbre.
+virus | Esto no acaba aquí. Volveré.
+free | Perdí. El viento cambió, y así está bien.
+free | Derrota... Dame un tiempo para soltar este pensamiento.
+free | Caer también es parte de un camino libre.
+free | Bah, una derrota no pesa cuando no te aferras a ganar.
+
+=== empate ===
+# Batalla Oficial empatada. Tono: neutro.
+--- nino ---
+vacuna | Empate. Al menos nadie salió herido.
+vacuna | Empatamos... estuvo parejo de verdad.
+vacuna | Nadie ganó, pero tampoco nos rendimos.
+vacuna | Un empate justo. Respeto a ese rival.
+vacuna | Empate. La próxima desempatamos.
+vacuna | ¡Nadie perdió!
+vacuna | ¡Igualitos!
+data | ¿Uno y uno?
+data | Empate. Las probabilidades eran casi iguales.
+data | Interesante: fuerzas casi idénticas.
+data | Empate técnico. Necesito más datos.
+data | Mismo daño, misma vida... curioso.
+data | Empatamos. Estadísticamente, era posible.
+data | Uh... ¿nadie ganó?
+data | ¿Empate? Nadie ganó... interesante.
+virus | ¿Empate? ¡Bah! Eso no cuenta.
+virus | ¡Rayos! Quería ganar, no empatar.
+virus | Empate... qué aburrido. Quiero la revancha.
+virus | Hmph. La próxima no habrá empate.
+virus | ¿Nadie ganó? Pues yo digo que gané yo.
+virus | ¡Grr! ¡Otra!
+free | Uh... ¿nadie ganó?
+free | ¡Empate! ¡Jeje!
+free | Empate. Bueno, todos contentos.
+free | Ni ganar ni perder. No está mal.
+free | Empatamos. ¿Lo dejamos así?
+free | Empate... me da igual, la verdad.
+free | Igualados. Fue divertido.
+todos | Igualados. No sabía que podía pasar eso.
+todos | Empate. Lo recordaré.
+todos | ¿Empate? ¿Qué es?
+todos | ¿Iguales?
+--- maduro ---
+vacuna | Empate. Dos fuerzas iguales que se respetan.
+vacuna | Nadie cayó hoy. Eso también es bueno.
+vacuna | Un empate honroso. Así debe ser.
+vacuna | Igualados. Habrá otra oportunidad.
+vacuna | Empate. Nadie salió herido, y eso me basta.
+data | Empate. Las variables se compensaron perfectamente.
+data | Resultado improbable, pero posible. Fascinante.
+data | Mismos números al final. Un caso raro.
+data | Empate. Ninguna estrategia superó a la otra.
+data | Igualados. Quiero entender por qué.
+data | Interesante: ninguno encontró la ventaja.
+virus | ¿Empate? Inaceptable.
+virus | Tsk. Un empate es una victoria a medias.
+virus | Diablos, tan cerca... la próxima lo decido yo.
+virus | No me gustan los empates. Me gustan las victorias.
+virus | Empate. Que no se acostumbre ese rival.
+free | Empate. A veces el camino no lleva a ninguna parte, y está bien.
+free | Igualados. Me parece justo.
+free | Empate... el resultado más tranquilo.
+free | Nadie ganó, nadie perdió. Me gusta.
+free | Bah, un empate. Tampoco es el fin del mundo.
+free | Empate. Dos fuerzas que se encontraron.
+free | Nadie ganó. Algo aprendí igual.
+--- maduro 2 ---
+vacuna | Empate. Dos voluntades firmes; ambas merecen respeto.
+vacuna | Nadie cayó hoy. Eso también es una victoria.
+vacuna | Igualados. Un rival así me hace mejor protector.
+vacuna | Empate honroso. Mi guardia sigue en alto.
+data | Empate. Un equilibrio perfecto; pocas veces se ve.
+data | Las fuerzas se anularon por completo. Fascinante.
+data | Empate. Ninguno vio la abertura. Yo tampoco... esta vez.
+data | Igualados. Un caso digno de estudio.
+virus | ¿Empate? Nadie me iguala... salvo hoy, al parecer.
+virus | Tsk. Un empate es una deuda pendiente.
+virus | Demonios, me dejaron sin victoria. Ya la cobraré.
+virus | Empate. Que no se confíe: la próxima es mía.
+free | Empate. Como el agua que encuentra su nivel.
+free | Igualados. Un final en calma, me gusta.
+free | Nadie ganó. Tal vez así debía ser.
+free | Empate... sin vencedor ni vencido. Qué tranquilo.
+
+=== arena_victoria ===
+# Ganó la ARENA 2 vs 2 (local u online). Tono: bueno. Variables: {companero}
+--- primera vez nino ---
+# 1 VEZ POR VIDA: su PRIMER comentario de victoria en la ARENA sale de aquí ("nino" = Child; "maduro" =
+# Adult, Perfect o Ultimate). Dicha una, se bloquean las dos secciones hasta que renazca. Es aparte
+# de la primera victoria en Batalla aleatoria u Oficial.
+todos | Ganamos... juntos. Me gusta.
+todos | ¿Así se gana en equipo? Lo recordaré.
+--- primera vez maduro ---
+todos | Nuestra primera victoria en la ARENA. Buen comienzo.
+vacuna | Primera victoria en equipo aquí. Cuidarnos el uno al otro funciona.
+data | Primera victoria en la ARENA. Pelear de a dos tiene su lógica, y la entendimos.
+virus | Primera vez en la ARENA y ya ganamos. Era de esperarse.
+free | Primera victoria en equipo. Pelear acompañado tiene su gracia.
+--- nino ---
+vacuna | ¡Ganamos la ARENA! Cuidarnos el uno al otro funcionó.
+vacuna | ¡Gran trabajo, {companero}! Te cubrí la espalda.
+vacuna | ¡Victoria en equipo! Así se pelea.
+vacuna | Juntos somos más fuertes, lo sabía.
+vacuna | ¡Ganamos! Nadie quedó atrás.
+vacuna | ¡Juntos fuertes!
+vacuna | ¡Equipo! ¡Siii!
+data | ¡Ganamos! ¡Los dos!
+data | ¡Victoria! La combinación con {companero} fue óptima.
+data | ¡Ganamos! Repartir el daño entre los dos fue la clave.
+data | Dos contra dos, y nuestros números fueron mejores.
+data | ¡Funcionó! El cambio en el momento justo lo decidió.
+data | Equipo ganador. Lo anoto como estrategia.
+virus | ¡Ja! Ganamos. Bueno, yo hice casi todo.
+virus | ¡Bien, {companero}! No me estorbaste nada.
+virus | ¡Arrasamos! ¿Quién sigue?
+virus | ¡Diablos, qué buen equipo hicimos!
+virus | Ganamos la ARENA. Obvio.
+virus | ¡Je! ¡Ganamos!
+free | ¿Ganamos? ¡Ganamos!
+free | ¡Ganamos! Qué buen dúo.
+free | Victoria en equipo, sin estrés.
+free | ¡Bien, {companero}! Fluyó todo.
+free | Ganamos los dos. ¿Celebramos?
+free | ¡ARENA ganada! Eso estuvo genial.
+todos | Victoria con {companero}. Se siente bien.
+todos | ¡Así se hace {companero}!
+--- maduro ---
+vacuna | Victoria. Proteger y ser protegido: eso es un equipo.
+vacuna | Ganamos juntos. {companero} peleó con valor.
+vacuna | La ARENA es nuestra. Gracias por estar a mi lado.
+vacuna | Ninguno cayó solo. Así se gana.
+vacuna | Victoria en equipo. Me llena de orgullo.
+vacuna | Ganamos juntos. Así se siente un equipo.
+data | Victoria. La sinergia del equipo superó a la suya.
+data | Ganamos. Usar PROTECT a tiempo fue decisivo.
+data | Resultado óptimo para una formación de dos.
+data | Interesante: juntos rendimos más que por separado.
+data | Victoria. {companero} cubrió justo mis puntos débiles.
+virus | La ARENA es mía. Bueno... nuestra.
+virus | Ganamos. {companero} no lo hizo nada mal.
+virus | Victoria. Dos contra dos, y aun así fue fácil.
+virus | Tsk, esperaba más resistencia. Igual, ganamos.
+virus | Así se gana: a mi manera, con buena compañía.
+free | Victoria en equipo. Sin presiones, todo sale.
+free | Ganamos. {companero} y yo nos entendimos bien.
+free | La ARENA es nuestra. Fue un buen rato.
+free | Una victoria compartida sabe mejor.
+free | Bah, ganar en equipo es más divertido.
+--- maduro 2 ---
+vacuna | Victoria en equipo. Protegí y fui protegido: así debe ser.
+vacuna | La ARENA es nuestra. {companero} honró a este equipo.
+vacuna | Ganamos juntos. Ningún aliado cae a mi lado.
+vacuna | Victoria. Un escudo es más fuerte cuando son dos.
+data | Victoria. Nuestra coordinación fue impecable.
+data | Ganamos. {companero} y yo funcionamos como un solo sistema.
+data | La estrategia en equipo dio el resultado esperado.
+data | Victoria. Combinar nuestras fuerzas fue la decisión correcta.
+virus | La ARENA se rinde ante nosotros. Bueno, ante mí.
+virus | Ganamos. {companero} estuvo a la altura... casi a la mía.
+virus | Ja. Ni dos rivales juntos pudieron detenernos.
+virus | Victoria. Hasta compartirla se siente bien, por esta vez.
+free | Victoria en equipo. Fluimos juntos sin esfuerzo.
+free | Ganamos. {companero} y yo, como dos vientos que se juntan.
+free | La ARENA es nuestra. Fue un buen baile.
+free | Una victoria compartida... la mejor clase de victoria.
+
+=== arena_derrota ===
+# Perdió la ARENA 2 vs 2. Tono: malo. Variables: {companero}
+# Sin "primera vez" propia: si es su primera derrota de la vida, usa el grupo de === derrota ===.
+--- nino ---
+vacuna | Perdimos... no pude cubrirlos a todos.
+vacuna | Lo siento, {companero}. La próxima te protejo mejor.
+vacuna | Perdimos, pero peleamos juntos hasta el final.
+vacuna | No nos rendimos, eso ya es mucho.
+vacuna | Hay que entrenar en equipo. Lo haremos.
+vacuna | Perdimos... snif.
+vacuna | Perdón... no cuidé mi posición.
+vacuna | Perdimos juntos. Duele un poco.
+data | Derrota... no sé qué hicimos mal.
+data | Uh... los dos perdimos.
+data | ¿Por qué perdimos?
+data | Derrota. Nuestra combinación no fue suficiente.
+data | Perdimos. Debí usar PROTECT antes.
+data | Sus números en equipo eran mejores. Por ahora.
+data | Hmm, el cambio llegó tarde. Lo anoto.
+data | Derrota en equipo. Hay mucho que analizar.
+virus | ¡Rayos! Perdimos en la ARENA.
+virus | Hmph. Si me hubieran dejado todo a mí...
+virus | ¡Demonios! Quiero la revancha, los dos.
+virus | Perdimos. No lo vuelvas a mencionar.
+virus | Bah, tuvieron suerte. Nada más.
+virus | ¡Grr! ¡No vale!
+free | Perdimos... uh.
+free | Perdimos. Bueno, lo intentamos.
+free | Uy, qué fastidio. Pero nos divertimos.
+free | Derrota en equipo. Nadie tiene la culpa.
+free | Perdimos... ¿vamos a hacer otra cosa?
+free | No fue nuestro día. Pasa.
+free | Lo intentaremos otra vez, ¿verdad?
+--- maduro ---
+vacuna | Caímos juntos. Nos levantaremos juntos.
+vacuna | Derrota. Pero lo importante es que nadie se rindió.
+vacuna | {companero} peleó bien. Me faltó cubrirlo.
+vacuna | Perdimos con honor. Eso también cuenta.
+vacuna | Descansemos. Un equipo se fortalece después de caer.
+vacuna | Caímos juntos. Algo aprenderé de esto.
+vacuna | Derrota. Un equipo también puede perder.
+vacuna | Lo guardo en la memoria. Seguiremos.
+data | Caímos juntos. Algo aprenderé de esto.
+data | Derrota. Un equipo también puede perder.
+data | Lo guardo en la memoria. Seguiremos.
+data | Derrota. Su formación era superior a la nuestra.
+data | Perdimos. El error fue no usar W-ATTACK a tiempo.
+data | Necesito más datos sobre el combate en equipo.
+data | Resultado desfavorable, pero instructivo.
+data | Derrota. Ya tengo una mejor estrategia en mente.
+virus | Maldición. Odio perder, ¿lo entiendes?
+virus | Tsk. La próxima no les daremos ni un turno.
+virus | Perdimos. Que lo disfruten mientras dure.
+virus | Una derrota en la ARENA. No se repetirá.
+virus | Hmph. Necesitamos una revancha, y pronto.
+virus | ¡Demonios! Quiero la revancha, los dos.
+virus | Perdimos. No lo vuelvas a mencionar.
+free | Perdimos. A veces el viento sopla en contra.
+free | Derrota en equipo. Lo tomamos con calma.
+free | Perder juntos no es tan malo.
+free | No fluyó esta vez. Para la otra será.
+free | Perdimos, pero fue una buena pelea.
+--- maduro 2 ---
+vacuna | Caímos juntos. Nos levantaremos juntos, lo prometo.
+vacuna | Mi deber era cubrir a {companero}; lo haré mejor.
+vacuna | Perdimos con honor. El equipo sigue en pie.
+vacuna | Una caída compartida pesa menos. Seguiremos.
+data | Derrota. Su coordinación superó a la nuestra. Por ahora.
+data | Perdimos. Ya identifiqué dónde fallamos.
+data | Una derrota en equipo deja muchas lecciones. Ya las tengo.
+data | Derrota. La próxima formación será distinta.
+virus | Si me hubiesen dado más poder a mí, con eso hubiese bastado. Qué fastidio.
+virus | Que disfruten esa victoria; será la última.
+virus | Perdimos. Recuerda sus caras: los borraremos.
+virus | Hmph. Un tropiezo en la ARENA no borra lo que soy.
+free | Perdimos juntos. El viento a veces sopla en contra.
+free | Derrota. Nada que cargar; seguimos adelante.
+free | No era nuestro momento. Llegará otro.
+free | Perdimos, pero bailamos bien.

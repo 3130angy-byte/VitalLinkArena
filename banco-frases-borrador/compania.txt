@@ -1,0 +1,555 @@
+# BANCO DE FRASES — COMPAÑÍA (borrador para revisar)
+# Formato y variables: ver LEEME.txt.
+
+=== aparecer ===
+# Sale del portal al escritorio (al abrir el programa o al cargarlo). Tono: bueno. Variables: {jugador}
+--- primera vez nino ---
+# 1 VEZ POR VIDA: la PRIMERA vez que aparece en tu escritorio dice una de estas ("nino" = Child, todo
+# es nuevo; "maduro" = Adult, Perfect o Ultimate). Dicha una, se bloquean las dos secciones.
+todos | ¿Hola?
+todos | ¡Uh! ¿Aquí?
+todos | Hola... ¿este es tu mundo?
+todos | ¡Llegué! Todo es nuevo para mí.
+todos | Hola. Quiero conocerte mejor.
+todos | ¿Aquí vamos a estar? Me gusta.
+todos | Hola, {jugador}. ¿Me enseñas cómo es todo aquí?
+data | ¿Dónde estoy? ¡Ooh!
+data | ¡Hola! ¿Qué es esto?
+data | ¡Muchas cosas! ¡Ooh!
+data | ¿Hola? ¿Tú?
+--- primera vez maduro ---
+# Viene del Vital Bracelet con su experiencia: lo nuevo es tu computadora, no el mundo entero.
+todos | Así que este es tu mundo. Hola, {jugador}.
+todos | Llegué. Un lugar nuevo... veamos cómo es.
+vacuna | Hola, {jugador}. Desde hoy también te cuido aquí.
+data | Otro mundo, otras reglas. Quiero entender cómo funciona todo esto.
+virus | Así que aquí vives. Bien: desde hoy también es mi territorio.
+free | Hola. Un mundo nuevo para recorrer... me gusta.
+--- nino ---
+vacuna | ¡Llegué! ¿Todo en orden por aquí?
+vacuna | ¡Hola! Me quedo a tu lado, ¿te parece?
+vacuna | Ya estoy aquí. Si algo pasa, cuenta conmigo.
+vacuna | ¡Hola! Revisé todo y parece un lugar seguro.
+vacuna | ¡Volví! ¿Me extrañaste?
+vacuna | ¡Hola! Hoy también vamos a hacerlo bien.
+vacuna | Aquí estoy. ¿Qué hacemos hoy?
+vacuna | ¡Hola! ¡Aquí estoy!
+vacuna | ¡Llegué!
+vacuna | ¡Hola, hola!
+vacuna | ¡Aquí! ¡Contigo!
+data | ¡Hola! ¿Qué hay de nuevo en tu computadora hoy?
+data | Llegué. Interesante... cambiaste algunas cosas de lugar.
+data | ¡Hola, {jugador}! Tengo muchas preguntas guardadas.
+data | ¡Volví! Cuéntame, ¿qué hiciste mientras no estaba?
+data | Hola. Analizando el entorno... todo parece normal.
+data | ¡Llegué! ¿Sabías que este escritorio tiene muchos íconos?
+data | ¡Hola! Hoy quiero aprender algo nuevo.
+data | Conexión establecida. ¡Hola!
+virus | ¡Je! Llegó lo mejor de tu día.
+virus | ¡Ya estoy aquí! Pueden empezar los aplausos.
+virus | ¡Hola, {jugador}! Me esperabas, ¿verdad?
+virus | Volví. Espero que no hayas dejado entrar a otro Digimon.
+virus | ¡Hola! Este escritorio ahora es mi territorio.
+virus | ¡Llegué! ¿Hay alguien a quien ganarle hoy?
+virus | ¿Qué tal? Vine a ver qué tan aburrido estaba esto.
+virus | ¡Ta-da! Te hacía falta, admítelo.
+virus | ¡Je! ¡Llegué!
+virus | ¡Yoh! ¡Aquí!
+virus | ¡Ta-da!
+free | ¡Hola! ¿Jugamos?
+free | ¡Llegué! ¡Yupi!
+free | ¡Holi!
+free | ¡Hola! Pasaba por aquí y me quedé.
+free | ¡Llegué! ¿Qué hay de bueno hoy?
+free | Hola, {jugador}. Sin prisa, ¿eh?
+free | ¡Holaaa! ¿Hacemos algo o vemos qué pasa?
+free | Volví. Me gusta este lugar, es tranquilo.
+free | ¡Hola! Hoy tengo ganas de todo y de nada.
+free | ¡Aquí estoy! Como el viento: cuando quiero.
+free | Hola, hola. ¿Cómo va todo?
+todos | ¡Hola, {jugador}! Aquí estoy, como siempre.
+--- maduro ---
+vacuna | Hola, {jugador}. Estoy aquí; puedes trabajar con calma.
+vacuna | He vuelto. Mientras esté a tu lado, nada te faltará.
+vacuna | Hola. Revisé el lugar: todo está en orden.
+vacuna | Aquí estoy, como siempre. ¿Cómo has estado?
+vacuna | Volví a tu lado. Es donde debo estar.
+vacuna | Hola. Que hoy sea un buen día para los dos.
+vacuna | Llegué. Si me necesitas, solo llámame.
+vacuna | Hola. Mi guardia empieza ahora.
+data | Hola, {jugador}. ¿Algún dato interesante de tu día?
+data | He vuelto. Noté que pasó un tiempo desde la última vez.
+data | Hola. Hoy tengo curiosidad por saber en qué trabajas.
+data | Conectado. Todo parece funcionar correctamente.
+data | Hola. Estuve pensando en una pregunta para ti.
+data | Volví. Me pregunto qué cambió desde la última vez.
+data | Hola. Hoy observaré con atención; siempre se aprende algo.
+data | Aquí estoy. Empecemos un nuevo día de datos.
+virus | He vuelto. Admítelo, el escritorio se veía vacío sin mí.
+virus | Hola, {jugador}. ¿Alguien interesante a quien retar hoy?
+virus | Llegué. Que tiemblen los demás Digimon.
+virus | Hola. Las reglas de este lugar ahora las pongo yo... a medias.
+virus | Volví. Espero que hayas extrañado mi encanto.
+virus | Hola. No vine a estar de adorno.
+virus | Aquí estoy. Que empiece la diversión.
+virus | Llegué. Y como siempre, a lo grande.
+free | Hola, {jugador}. Llegué cuando tenía que llegar.
+free | He vuelto. Ningún plan, solo ganas de estar aquí.
+free | Hola. Hoy me dejo llevar por lo que pase.
+free | Aquí estoy. Este lugar tiene buena energía.
+free | Volví. ¿Qué tal si hoy no nos apuramos?
+free | Hola. Como siempre, sin ataduras.
+free | Llegué. Que el día decida lo demás.
+free | Hola, hola. Qué gusto verte otra vez.
+todos | Hola. Cada vez que vuelvo, entiendo algo más de ti.
+todos | He vuelto. Todavía hay mucho que descubrir aquí.
+todos | Hola, {jugador}. Sigo aprendiendo quién soy a tu lado.
+todos | Llegué. Este lugar ya se siente familiar.
+todos | Hola. ¿Qué me enseñarás hoy?
+--- maduro 2 ---
+vacuna | He vuelto, {jugador}. Mi juramento de protegerte sigue en pie.
+vacuna | Aquí estoy. Ningún peligro te alcanzará mientras vigile.
+vacuna | Hola. Que hoy sea un día en paz para los dos.
+vacuna | He llegado. Mi lugar siempre será a tu lado.
+data | Hola, {jugador}. He estado reflexionando sobre muchas cosas.
+data | He vuelto. El mundo cambió un poco desde la última vez; yo también.
+data | Hola. Hoy tengo la mente clara y muchas preguntas.
+data | Aquí estoy. Observemos juntos lo que trae el día.
+virus | He vuelto. Que el mundo se acomode a mi llegada.
+virus | Hola, {jugador}. La cima se siente sola sin ti... un poco.
+virus | Aquí estoy, en mi mejor forma. Como siempre.
+virus | Llegué. ¿Algún rival que merezca mi atención?
+free | Hola, {jugador}. Llegué con el viento, como siempre.
+free | He vuelto. Sin prisa, sin planes, solo aquí.
+free | Hola. Hoy el día es un lienzo en blanco.
+free | Aquí estoy. Que todo fluya a su ritmo.
+
+=== pensamiento ===
+# Comentario suelto cuando no pasa nada (cada 20-40 min, nunca si está ocupado). Tono: neutro.
+# Pocas preguntas a propósito: es un comentario, no un interrogatorio.
+--- nino ---
+vacuna | Todo tranquilo por aquí. Sigo vigilando.
+vacuna | A veces pienso en cómo hacerme más fuerte para cuidarte.
+vacuna | No trabajes demasiado, ¿sí? Un descanso también es importante.
+vacuna | Me gusta cuando el escritorio está en calma.
+vacuna | Si algo te preocupa, puedes contármelo.
+vacuna | Estoy entrenando en mi cabeza. ¡Uno, dos!
+vacuna | ¿Ya tomaste agua hoy?
+vacuna | Me siento bien estando aquí contigo.
+vacuna | ¡Yo vigilo!
+vacuna | Mmm... ¿todo bien?
+data | Llevas un buen rato frente a la pantalla, ¿sabías?
+data | Estoy contando los íconos de tu escritorio... perdí la cuenta.
+data | Me pregunto cómo funciona internet por dentro.
+data | Hoy aprendí algo mirando lo que haces. Es interesante.
+data | ¿Por qué los programas se cierran solos a veces? Misterio.
+data | Estoy repasando mis peleas. Hay patrones curiosos.
+data | Las teclas hacen un ritmo cuando escribes. Me gusta.
+data | Mi número favorito cambia según el día. Hoy es el siete.
+data | ¿Eso qué es?
+data | Hoy aprendí algo nuevo, creo.
+virus | Me aburro... ¿no hay nadie a quien retar?
+virus | Este escritorio necesita más acción.
+virus | Je, si fuera tú, cerraría ese programa aburrido.
+virus | Estoy pensando en mi próxima victoria.
+virus | ¿Y si cambiamos todo de lugar? Para variar.
+virus | Las reglas son aburridas. Ganar no.
+virus | ¡Rayos! Quiero una pelea ya.
+virus | No me mires, estoy pensando en cosas importantes... bueno, no tanto.
+virus | ¡Je! ¡Qué aburrido!
+virus | ¡Quiero pelear!
+virus | ¡A jugar! ¡Ya!
+free | Hoy el día se siente ligero.
+free | La-la-la... estoy de buen humor.
+free | Me pregunto qué habrá más allá de la pantalla.
+free | A veces solo quiero mirar cómo pasa el tiempo.
+free | Bah, ¿para qué apurarse?
+free | Me gusta este lugar. Es como una nube tranquila.
+free | Si quieres hacer una pausa, aquí estoy.
+free | Pensaba en nada... y estuvo bien.
+free | ¡La-la-la!
+free | ¿Jugamos?
+todos | Estoy mirando todo con atención.
+todos | Cada día entiendo un poco más de este lugar.
+todos | ¿Qué estarás haciendo? Parece importante.
+todos | Mmm... me gusta estar aquí.
+--- maduro ---
+vacuna | Todo está en calma. Sigo atento, como siempre.
+vacuna | Recuerda descansar la vista de vez en cuando.
+vacuna | La verdadera fuerza está en saber cuidar a otros.
+vacuna | Me alegra acompañarte mientras trabajas.
+vacuna | Si el día se pone pesado, aquí estaré.
+vacuna | A veces la mejor defensa es un buen descanso.
+vacuna | Pienso en todas las batallas que hemos pasado juntos.
+vacuna | Tu bienestar también es mi misión.
+vacuna | Estar a tu lado me ayuda a entenderme.
+data | Interesante cómo cambia tu escritorio con los días.
+data | Estoy ordenando lo que aprendí de nuestras últimas peleas.
+data | La curiosidad es el mejor combustible. No se acaba.
+data | Me pregunto cuántas cosas hay en internet que nadie ha leído.
+data | Cada pequeño cambio cuenta. Los datos lo muestran.
+data | Pensando... siempre hay una pregunta más.
+data | Observar en silencio también es aprender.
+data | El tiempo frente a la pantalla se mide distinto cuando estás concentrado.
+data | Observo, aprendo, recuerdo.
+virus | El silencio me aburre. ¿Alguna aventura a la vista?
+virus | Pienso en las reglas que rompería si pudiera.
+virus | Je. Ningún rival ha vuelto a retarme. Me pregunto por qué.
+virus | La calma está bien... por un rato.
+virus | Estoy planeando algo. No preguntes qué.
+virus | Tsk, ¿cuándo fue la última vez que peleamos?
+virus | Un poco de caos le haría bien a este escritorio.
+virus | Estar sin hacer nada no es lo mío, pero por ti lo intento.
+free | El tiempo pasa distinto cuando no lo persigues.
+free | Hoy me dejo llevar. Es lo mejor.
+free | Me gusta este silencio. No hace falta llenarlo.
+free | A veces la mejor idea es no tener ninguna.
+free | Bah, las preocupaciones se van solas si las dejas.
+free | Me pregunto qué sueños tienen los programas.
+free | Estoy aquí, sin prisa ni planes.
+free | Si hoy no pasa nada, también está bien.
+free | Sigo descubriendo quién soy, y me gusta lo que veo.
+todos | Cada momento aquí me cambia un poco.
+--- maduro 2 ---
+vacuna | La paz de este lugar vale cada batalla.
+vacuna | Proteger no es solo pelear; también es acompañar.
+vacuna | Mientras descansas la vista, yo sigo de guardia.
+vacuna | He visto muchas batallas. Ninguna vale más que tu tranquilidad.
+data | Todo está conectado. Cuanto más observo, más lo veo.
+data | El conocimiento no tiene fin, y eso me tranquiliza.
+data | A veces la mejor respuesta es una buena pregunta.
+data | Estoy ordenando recuerdos. Hay patrones hermosos en ellos.
+virus | Llegar a la cima es fácil. Mantenerse es lo divertido.
+virus | Las reglas son para quien no sabe escribir las suyas.
+virus | Demonios, extraño un rival que me haga sudar.
+virus | Je. Todavía no nace quien me haga perder la calma.
+free | El viento no pregunta adónde va. Yo tampoco.
+free | Ser libre es no necesitar nada. Y aquí no me falta nada.
+free | Me gusta este silencio. Dice más que muchas palabras.
+free | Todo pasa. Lo bueno es disfrutarlo mientras dura.
+
+=== ir_a_sala ===
+# Entra al portal hacia la sala del VS Online. Tono: bueno.
+--- primera vez nino ---
+# 1 VEZ POR VIDA: la PRIMERA vez que entra a la sala dice una de estas ("nino" = Child; "maduro" =
+# Adult, Perfect o Ultimate). Dicha una, se bloquean las dos secciones.
+todos | ¿A dónde? ¡Ooh!
+todos | ¿Otro lugar?
+todos | ¿La sala? Vamos a ver.
+todos | Otro lugar... qué emoción.
+todos | Vamos. Cada lugar nuevo me enseña algo.
+todos | A la sala. Quiero ver cómo son los demás.
+--- primera vez maduro ---
+todos | La sala del VS Online. Veamos quién anda por ahí.
+vacuna | Primera vez en la sala. Me quedo cerca de ti.
+data | La sala... quiero ver cómo pelean los demás.
+virus | Primera vez en la sala. Que vayan conociéndome.
+free | Un lugar nuevo lleno de Digimon. Vamos a dar una vuelta.
+--- nino ---
+vacuna | ¡Vamos a la sala! Allá también te cuido.
+vacuna | A la sala. Hay que portarse bien con los demás.
+vacuna | ¡Vamos! Si alguien nos reta, estaremos a la altura.
+vacuna | ¡A la sala! Me gusta conocer a otros jugadores.
+vacuna | Vamos juntos. No me separo de ti.
+vacuna | ¡Allá también te cuido!
+data | ¡A la sala! Quiero ver qué Digimon hay hoy.
+data | Entrando a la sala... ¿cuántos jugadores habrá?
+data | ¡Vamos! Quiero estudiar a los rivales.
+data | Sala online. Muchos datos nuevos.
+data | ¡Vamos! Ojalá haya alguien con un rango alto.
+data | ¿Qué habrá allá hoy?
+virus | ¡A la sala! Hora de presumir.
+virus | ¡Vamos! Que alguien se atreva a retarme.
+virus | Je, a ver quién está hoy.
+virus | ¡A la sala! Mis rivales me esperan.
+virus | Vamos. Y si nos retan, los aplastamos.
+virus | ¡A pelear! ¡Je!
+free | ¡A pasear a la sala!
+free | Vamos a ver qué hay. Sin presión.
+free | ¡Sala! Ojalá haya alguien simpático.
+free | Vamos. Si hay pelea, bien; si no, también.
+free | ¡A la sala! Me gusta ver gente nueva.
+free | ¡Afuera! ¡Wiii!
+free | ¡De paseo!
+todos | ¡Vamos! ¡Vamos!
+todos | Vamos. Quiero conocer a otros Digimon.
+--- maduro ---
+vacuna | Vamos a la sala. Te acompaño, como siempre.
+vacuna | A la sala. Mantengamos la cortesía con todos.
+vacuna | Vamos. Si hay un desafío, lo enfrentaremos juntos.
+vacuna | Entremos. Estaré atento a lo que pase.
+vacuna | A la sala. Allí también estaré a tu lado.
+data | Vamos a la sala. Buen momento para observar estrategias.
+data | Entrando. Analizaré a los rivales disponibles.
+data | A la sala. Cada jugador es una fuente de datos.
+data | Vamos. Me interesa ver los rangos de hoy.
+data | Sala online. Una oportunidad para aprender.
+data | Entremos. Tengo curiosidad.
+virus | Vamos a la sala. Que sepan quién llegó.
+virus | A la sala. Busquemos a alguien que valga la pena.
+virus | Entremos. Hoy tengo ganas de una buena pelea.
+virus | Vamos. Mi reputación no se defiende sola.
+virus | A la sala. Que tiemblen los de rango S.
+free | Vamos a la sala. Lo que surja, surge.
+free | Entremos. Sin expectativas, todo sorprende.
+free | A la sala. Ojalá haya buena compañía.
+free | Vamos. Hoy me dejo llevar.
+free | A la sala, sin prisas.
+--- maduro 2 ---
+vacuna | Vamos a la sala. Te acompaño, como en cada camino.
+vacuna | Entremos. Mantendré la guardia en alto.
+vacuna | A la sala. Que nuestra presencia inspire respeto.
+vacuna | Vamos. Si hay un desafío, lo enfrentaremos con honor.
+data | Vamos a la sala. Hay mucho que observar.
+data | Entremos. Cada jugador es un mundo por descubrir.
+data | A la sala. Veamos qué ha cambiado entre los rivales.
+data | Vamos. Hoy quiero estudiar a los de rango S.
+virus | Vamos a la sala. Que sepan que llegó quien manda.
+virus | Entremos. Busco a alguien que me haga esforzar.
+virus | A la sala. Mi sola presencia ya es un desafío para ellos.
+virus | Vamos. Que tiemblen, aunque sea un poco.
+free | Vamos a la sala. Sin expectativas, como debe ser.
+free | Entremos. El camino decidirá lo demás.
+free | A la sala, a ver qué trae el viento.
+free | Vamos. Hoy me dejo sorprender.
+
+=== volver_de_sala ===
+# Vuelve de la sala al escritorio. Tono: bueno.
+--- primera vez nino ---
+# 1 VEZ POR VIDA: la PRIMERA vez que vuelve de la sala dice una de estas ("nino" = Child; "maduro" =
+# Adult, Perfect o Ultimate). Dicha una, se bloquean las dos secciones.
+todos | Volví. Vi muchas cosas nuevas.
+todos | De regreso. Lo recordaré.
+--- primera vez maduro ---
+todos | De vuelta. La sala es más grande de lo que pensé.
+vacuna | Volví. Todo en orden por allá.
+data | Volví. Tomé nota de todo lo que vi en la sala.
+virus | Volví. Nadie allá me impresionó... todavía.
+free | Volví. Buen paseo.
+--- nino ---
+vacuna | ¡De vuelta! Me gusta estar aquí contigo.
+vacuna | Volvimos. Todo salió bien.
+vacuna | Ya en casa. Aquí te sigo cuidando.
+vacuna | ¡Volví! La sala estuvo bien, pero aquí estoy mejor.
+vacuna | De regreso. ¿Descansamos un poco?
+vacuna | ¡A casa! Aquí estamos seguros.
+data | ¡Volvimos! Vi muchos Digimon interesantes.
+data | De regreso. Tengo mucho que analizar.
+data | Ya en casa. ¿Viste cuántos jugadores había?
+data | Volví con información nueva.
+data | De vuelta. La sala fue muy educativa.
+data | ¡Había mucha gente!
+virus | Volví. La sala no estuvo a mi altura.
+virus | De regreso. Nadie se atrevió a mucho.
+virus | Je, ya en casa. ¿Me extrañaste?
+virus | Volvimos. La próxima vez, más peleas.
+virus | De vuelta a mi territorio.
+virus | ¡Je! ¡Volví!
+free | ¡De vuelta! Fue un buen paseo.
+free | Volvimos. Ahora a relajarse.
+free | Ya en casa. Qué bien se está aquí.
+free | ¡Volví! Me divertí.
+free | De regreso, sin prisa.
+free | ¡Qué paseo!
+todos | ¡Volví! ¡A casa!
+todos | ¡Aquí otra vez!
+todos | ¡Hola de nuevo!
+todos | Ya en casa. Se siente bien.
+--- maduro ---
+vacuna | He vuelto. Aquí sigue siendo mi lugar.
+vacuna | De regreso. Todo en orden.
+vacuna | Volvimos sanos y salvos.
+vacuna | Ya en casa. Sigo a tu lado.
+vacuna | He regresado. Descansemos.
+data | De regreso. Fue una sesión productiva.
+data | He vuelto con datos valiosos.
+data | Ya en casa. Hay mucho que procesar.
+data | Volvimos. Interesante variedad de rivales.
+data | De vuelta. Lo anotaré todo.
+data | Ya en casa. Aprendí algo.
+virus | He vuelto. La sala sigue sin estar a mi nivel.
+virus | De regreso. Que me esperen la próxima vez.
+virus | Volvimos. Dejé mi marca, como siempre.
+virus | Ya en casa. El trono me esperaba.
+virus | De vuelta. Pocas emociones, la verdad.
+free | He vuelto. Buen paseo.
+free | De regreso, sin apuros.
+free | Ya en casa. Se respira mejor aquí.
+free | Volvimos. Lo disfruté.
+free | De vuelta. A ver qué sigue.
+free | He vuelto con algo nuevo dentro.
+todos | De regreso. Cada salida me cambia.
+--- maduro 2 ---
+vacuna | He vuelto contigo. Aquí está mi verdadero lugar.
+vacuna | De regreso. Todo terminó en paz.
+vacuna | Volvimos. Mi guardia sigue aquí.
+vacuna | Ya en casa. Descansemos con calma.
+data | De regreso. Fue una sesión llena de aprendizajes.
+data | He vuelto con mucho que pensar.
+data | Volvimos. Interesante: cada jugador pelea distinto.
+data | Ya en casa. Ordenaré lo que vi.
+virus | He vuelto. Ni en la sala hay alguien a mi altura.
+virus | De regreso. Dejé claro quién es el más fuerte.
+virus | Volvimos. Hubo poco desafío, como esperaba.
+virus | Ya en casa. El trono me extrañaba.
+free | He vuelto. Buen paseo, sin apuros.
+free | De regreso. Me llevo un buen rato.
+free | Volvimos. Aquí se respira tranquilo.
+free | Ya en casa. A ver qué trae lo que sigue.
+
+=== retiro ===
+# RETIRAR: vuelve al Vital Bracelet (despedida). Tono: neutro.
+--- nino ---
+vacuna | Me voy al Vital Bracelet. Cuídate mucho, ¿sí?
+vacuna | Hasta pronto. Te seguiré cuidando desde allá.
+vacuna | Me retiro. Gracias por todo.
+vacuna | Vuelvo a casa. Nos vemos pronto.
+vacuna | Adiós por ahora. Fue un honor pelear aquí.
+vacuna | ¡Chau! ¡Cuídate!
+data | Me voy. Llevo todos los datos de mis peleas.
+data | Regreso al Vital Bracelet. Fue muy interesante.
+data | Hasta pronto. Aprendí muchísimo aquí.
+data | Me retiro con nuevos registros.
+data | Adiós. Allá revisaré todo lo que vivimos.
+virus | Me voy. No me extrañes demasiado... o sí.
+virus | Vuelvo al Vital Bracelet. Que nadie ocupe mi lugar.
+virus | Je, hasta luego. Ganamos más de lo que perdimos, ¿no?
+virus | Me retiro. Pero volveré más fuerte.
+virus | Adiós. Este escritorio no será lo mismo sin mí.
+virus | ¡Je! ¡Chau!
+free | Me voy. Fue un buen tiempo aquí.
+free | Hasta luego. Como el viento: me voy y vuelvo.
+free | Vuelvo al Vital Bracelet. Nos vemos.
+free | Me retiro sin dramas. Chau.
+free | Adiós. Me divertí mucho.
+free | ¡Bye bye!
+todos | ¡Chau, chau!
+todos | ¡Adiós! ¡Vuelvo pronto!
+todos | Snif... ¡chau!
+todos | Me voy... pero recordaré este lugar.
+todos | Adiós. Gracias por enseñarme.
+--- maduro ---
+vacuna | Regreso al Vital Bracelet. Llevo conmigo lo que vivimos.
+vacuna | Me retiro con honor. Gracias por confiar en mí.
+vacuna | Hasta pronto. Seguiré protegiéndote, aunque sea desde allá.
+vacuna | Me voy. Cuida de ti mientras no estoy.
+vacuna | Adiós por ahora. Fue un privilegio.
+data | Regreso con un registro completo de nuestras batallas.
+data | Me retiro. El balance final fue... interesante.
+data | Hasta pronto. Cada dato de aquí valió la pena.
+data | Me voy. Allí analizaré todo con calma.
+data | Adiós. Aprendí más de lo que esperaba.
+virus | Me retiro. Pero que conste: no me rindo, solo descanso.
+virus | Vuelvo al Vital Bracelet. Que me recuerden.
+virus | Hasta luego. Fue divertido ser el más fuerte aquí.
+virus | Me voy. Volveré cuando haya rivales dignos.
+virus | Adiós. Deja mi lugar libre.
+free | Regreso. Todo tiene su momento, y este fue bueno.
+free | Me voy sin pena. Volveré cuando el viento lo diga.
+free | Hasta pronto. Fue un buen viaje.
+free | Me retiro. Gracias por el tiempo compartido.
+free | Adiós. Nos vemos en otra vuelta.
+free | Me voy. Esta etapa me hizo un poco más yo.
+todos | Hasta pronto. Llevo lo aprendido.
+todos | Adiós. Gracias por mostrarme tu mundo.
+--- maduro 2 ---
+vacuna | Regreso al Vital Bracelet. Mi juramento se queda contigo.
+vacuna | Me retiro con honor. Fue un privilegio protegerte.
+vacuna | Hasta pronto. Donde esté, seguiré cuidándote.
+vacuna | Adiós por ahora. Llevo cada batalla en mi memoria.
+data | Regreso con todo lo aprendido. Fue invaluable.
+data | Me retiro. Este capítulo quedó bien registrado.
+data | Hasta pronto. Cada día aquí me dio más sabiduría.
+data | Adiós. Allá seguiré pensando en lo que vivimos.
+virus | Me retiro, pero el mundo no se librará de mí tan fácil.
+virus | Vuelvo al Vital Bracelet. Que nadie olvide quién estuvo aquí.
+virus | Hasta luego. Fue un placer ser el más fuerte de este lugar.
+virus | Adiós. Cuida mi lugar; volveré a reclamarlo.
+free | Regreso al Vital Bracelet, como el viento que vuelve a casa.
+free | Me voy en paz. Fue un buen viaje.
+free | Hasta pronto. Nada termina, solo cambia.
+free | Adiós. Gracias por dejarme ser libre aquí.
+
+=== reemplazo ===
+# Otro Digimon toma su puesto y este vuelve a su cápsula del Laboratorio. Tono: neutro.
+--- primera vez nino ---
+# 1 VEZ POR VIDA: la PRIMERA vez que lo cambian por otro dice una de estas ("nino" = Child; "maduro" =
+# Adult, Perfect o Ultimate). Dicha una, se bloquean las dos secciones (todavía no conoce su cápsula).
+todos | ¿Vuelvo a la cápsula? Está bien.
+data | ¿Mi cápsula?
+--- primera vez maduro ---
+todos | Mi turno de descansar en la cápsula. Llámame cuando me necesites.
+vacuna | Me guardo en la cápsula. Si me necesitas, ahí estaré.
+data | La cápsula del Laboratorio. Nunca había estado en una; interesante.
+virus | ¿A la cápsula? Está bien... por ahora.
+free | A la cápsula, entonces. Un descanso no me viene mal.
+--- nino ---
+vacuna | Me toca descansar. Cuídense, ¿sí?
+vacuna | Vuelvo a mi cápsula. Si me necesitas, llámame.
+vacuna | Está bien, cambio de turno. Te encargo todo.
+vacuna | Descansaré un rato. Volveré pronto.
+vacuna | Me voy a mi cápsula. Pórtense bien.
+vacuna | ¡Cuídalo bien!
+data | Cambio de puesto. Entendido.
+data | Vuelvo a la cápsula. Aprovecharé para ordenar mis datos.
+data | Me toca descansar. Interesante elección.
+data | A la cápsula. Volveré con ideas nuevas.
+data | Cambio registrado. Hasta pronto.
+virus | ¿Me cambias? Hmph. Ya me extrañarás.
+virus | Está bien... pero que conste que soy el mejor.
+virus | Vuelvo a la cápsula. Que no se acostumbre el otro.
+virus | Je, descansaré. Por ahora.
+virus | ¡Rayos! Bueno, me toca esperar.
+virus | ¡Hmph! ¡Ya vuelvo!
+free | Me voy a la cápsula. Una siesta no viene mal.
+free | Cambio de turno, sin problema.
+free | Bueno, a descansar un rato.
+free | Vuelvo a mi cápsula. Pásenla bien.
+free | Bah, me toca descansar. Mejor.
+free | ¡Hora de una siesta!
+todos | ¿Me voy? Bueno...
+todos | ¡Chau! ¡Cambio de turno!
+todos | ¡Adiós! ¡Ya vuelvo!
+todos | Me toca esperar. Lo haré.
+todos | Cambio de turno. Te veo luego.
+--- maduro ---
+vacuna | Descansaré en mi cápsula. Mi guardia sigue en pie.
+vacuna | Cambio de turno. Confío en quien me reemplaza.
+vacuna | Vuelvo a la cápsula. Llámame si me necesitas.
+vacuna | Me retiro un momento. Cuídate.
+vacuna | Está bien. Descansar también es parte del deber.
+data | Cambio de puesto. Usaré el tiempo para analizar.
+data | A la cápsula. Será un buen momento para pensar.
+data | Entendido. Volveré con conclusiones nuevas.
+data | Me toca esperar. Lo haré con provecho.
+data | Cambio registrado. Hasta pronto.
+data | Vuelvo a la cápsula. Pensaré en lo que aprendí.
+virus | ¿Me reemplazas? Ya verás cuánto me extrañas.
+virus | Vuelvo a la cápsula. Que el otro no se luzca demasiado.
+virus | Hmph. Descansaré, pero no me olvides.
+virus | Cambio de turno. Que nadie toque mis récords.
+virus | Me voy a la cápsula. Volveré cuando haga falta un campeón.
+free | A la cápsula. Todo fluye, todo cambia.
+free | Cambio de turno. Buen momento para descansar.
+free | Me voy sin problema. Nos vemos luego.
+free | Descansaré. Que te vaya bien.
+free | Bah, una pausa no le hace mal a nadie.
+todos | Cambio de turno. Esperaré.
+todos | Me toca descansar. Hasta luego.
+--- maduro 2 ---
+vacuna | Descansaré en mi cápsula. Mi guardia no termina.
+vacuna | Cambio de turno. Confío en quien toma mi lugar.
+vacuna | Vuelvo a la cápsula. Si me llamas, acudiré.
+vacuna | Está bien. Proteger también es saber dar paso.
+data | Cambio de puesto. Aprovecharé para meditar.
+data | A la cápsula. Será una buena pausa para ordenar ideas.
+data | Entendido. Volveré con una mirada más clara.
+data | Un cambio razonable. Hasta pronto.
+virus | ¿Me reemplazas? Ya sabes a quién llamar cuando haga falta.
+virus | Vuelvo a la cápsula. Que el otro no se acostumbre a la gloria.
+virus | Hmph. Descansaré, pero mi trono no se mueve.
+virus | Cambio de turno. Volveré cuando el desafío lo merezca.
+free | A la cápsula. Todo fluye, hasta los turnos.
+free | Cambio de lugar, sin problema. Nos vemos.
+free | Descansaré. El viento me traerá de vuelta.
+free | Bah, una pausa siempre viene bien.

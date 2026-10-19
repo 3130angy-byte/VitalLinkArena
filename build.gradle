@@ -1,0 +1,145 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+// VitalLink Arena -- versión con Versionado Semántico (SemVer). jpackage solo acepta números: 0.4.0.
+def releaseVersion = '0.4.0-beta.1'
+def numericVersion = '0.4.0'
+version = releaseVersion
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // ============================================================
+    // VB-DIM-Reader
+    // ============================================================
+    implementation files('libs/VB-DIM-Reader-2.1.0.jar')
+
+    // Dependencias utilizadas por VB-DIM-Reader
+    implementation 'org.json:json:20240303'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'at.favre.lib:bytes:1.5.0'
+}
+
+javafx {
+    version = '21.0.4'
+
+    modules = [
+            'javafx.controls',
+            'javafx.graphics',
+            'javafx.media' // efectos de sonido (MP3) del Vital Bracelet, desde DigimonProjectData\sounds
+    ]
+}
+
+application {
+    mainClass = 'org.example.Main'
+}
+
+// Servidor del VS Online por defecto en la pantalla de inicio: "100.x" = un ejemplo; cada jugador escribe
+// la IP de Tailscale que le pase el anfitrión.
+def defaultHost = '100.x'
+
+tasks.named('run', JavaExec) {
+    jvmArgs '-Dfile.encoding=UTF-8', "-Ddigimon.servidor=${defaultHost}"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+// Los .java están en UTF-8 (tildes, ñ, "…"). Sin esto, en Windows javac los
+// lee como windows-1252: falla con algunos caracteres y corrompe los textos en español.
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Banco de frases del Digimon (sus reacciones a cada evento): se edita en banco-frases-borrador
+// (formato en su LEEME.txt) y viaja dentro del programa como recurso /banco.
+processResources {
+    from('banco-frases-borrador') {
+        include 'peleas.txt', 'compania.txt', 'estilo.txt'
+        into 'banco'
+    }
+    exclude '**/*.rar', '**/*.zip', '**/*.7z'
+}
+
+// ============================================================
+// VS Online
+//   .\gradlew.bat runServer                         servidor en el puerto 7777
+//   .\gradlew.bat runClient --args="--ventanas=2"   dos jugadores de prueba
+// ============================================================
+tasks.register('runServer', JavaExec) {
+    group = 'vs online'
+    description = 'Arranca el servidor VS Online en esta PC.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.example.online.server.VsServer'
+    jvmArgs '-Dfile.encoding=UTF-8'
+    standardInput = System.in
+}
+
+tasks.register('runClient', JavaExec) {
+    group = 'vs online'
+    description = 'Abre la ventana de prueba de la sala (acepta --host, --port, --name, --ventanas).'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.example.online.client.LobbyTestLauncher'
+    jvmArgs '-Dfile.encoding=UTF-8'
+}
+
+// ============================================================
+// Paquete descargable para Windows (jpackage, Java incluido):
+//   .\gradlew.bat packageGame                     -> build\dist\VitalLink Arena v<versión>\ (carpeta + .zip)
+//   .\gradlew.bat packageGame -Pdestino=<carpeta> -> en otra carpeta
+// ============================================================
+tasks.register('gameInput', Sync) {
+    dependsOn 'jar'
+    from tasks.named('jar')
+    from configurations.runtimeClasspath
+    into layout.buildDirectory.dir('package/input')
+}
+
+tasks.register('packageGame') {
+    group = 'distribution'
+    description = 'Arma VitalLink Arena para Windows: carpeta con Java incluido y un .zip listo para compartir.'
+    dependsOn 'gameInput'
+    doLast {
+        def appName = 'VitalLink Arena'
+        def jdk = javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(17) }.get().metadata.installationPath
+        def jpackage = jdk.file('bin/jpackage.exe').asFile
+        def work = layout.buildDirectory.dir('package/work').get().asFile
+        def image = new File(work, 'image')
+        ant.delete(dir: image, failonerror: false)
+        work.mkdirs()
+
+        def cmd = [jpackage.absolutePath, '--type', 'app-image',
+                   '--name', appName,
+                   '--input', layout.buildDirectory.dir('package/input').get().asFile,
+                   '--main-jar', tasks.named('jar').get().archiveFileName.get(),
+                   '--main-class', 'org.example.Launcher',
+                   '--java-options', '-Dfile.encoding=UTF-8',
+                   '--java-options', "-Ddigimon.servidor=${defaultHost}",
+                   '--app-version', numericVersion, '--vendor', 'VitalLink Arena', '--dest', image]
+        def proc = new ProcessBuilder(cmd.collect { it.toString() }).inheritIO().start()
+        if (proc.waitFor() != 0) throw new GradleException("jpackage falló (código ${proc.exitValue()})")
+
+        def base = project.hasProperty('destino') ? file(project.property('destino')) : layout.buildDirectory.dir('dist').get().asFile
+        def out = new File(base, "${appName} v${releaseVersion}")
+        def zip = new File(out, "${appName} v${releaseVersion}.zip")
+        ant.delete(dir: out, failonerror: false)
+        out.mkdirs()
+        def docs = ['README.md', 'LEEME.md', 'LICENSE', 'THIRD-PARTY-NOTICES.md']
+        ant.copy(todir: out) { fileset(dir: image) }
+        docs.each { ant.copy(file: file(it), todir: out) }
+        ant.zip(destfile: zip) {
+            fileset(dir: image)
+            docs.each { fileset(file: file(it)) }
+        }
+        println "Listo: ${out}"
+    }
+}

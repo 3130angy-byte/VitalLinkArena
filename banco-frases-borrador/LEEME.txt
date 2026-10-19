@@ -1,0 +1,113 @@
+BANCO DE FRASES DEL DIGIMON (VitalLink Arena)
+=============================================
+
+Qué es
+------
+Lo que dice el Digimon en su globo cuando pasa algo (ganar, perder, aparecer, ir a la sala...)
+sale de aquí. Corrige, borra o agrega lo que quieras.
+
+  Al compilar (.\gradlew.bat run o los paquetes) estos
+  archivos viajan dentro del programa. Si cambias algo, vuelve a ejecutarlo para que lo tome.
+  Para revisar cómo combinan las frases, genera las muestras (carpeta muestras):
+    .\gradlew.bat compileJava
+    java -Dfile.encoding=UTF-8 -cp build/classes/java/main tools/GenerarMuestrasBanco.java banco-frases-borrador banco-frases-borrador/muestras
+
+Archivos
+--------
+  peleas.txt      victoria, derrota, empate, arena_victoria, arena_derrota
+  compania.txt    aparecer, pensamiento, ir_a_sala, volver_de_sala, retiro, reemplazo
+  estilo.txt      lo que agrega el Activity Type (antes y después de la frase)
+
+Cuándo lo dice
+--------------
+  victoria, derrota, empate       al VOLVER de una Batalla aleatoria u Oficial (junto con la pose)
+  arena_victoria, arena_derrota   al volver de la ARENA 2 vs 2 (local u online)
+  aparecer                        al salir del portal a tu escritorio
+  pensamiento                     suelto, cada 20-40 min (nunca si está ocupado o ya está hablando)
+  ir_a_sala, volver_de_sala       al entrar a la sala del VS Online y al volver (si peleó allá,
+                                  al volver comenta la última pelea en vez de "volví")
+  retiro                          al RETIRAR (vuelve al Vital Bracelet)
+  reemplazo                       cuando otro Digimon toma su puesto
+
+Formato
+-------
+  === victoria ===            un evento
+  # ...                       comentario (el programa lo ignora)
+  --- primera vez nino ---    frases de 1 vez por vida (ver abajo) si es Child
+  --- primera vez maduro ---  frases de 1 vez por vida si es Adult, Perfect o Ultimate
+  --- nino ---                etapa: nino = Child
+  --- maduro ---                     maduro = Adult y Perfect
+  --- maduro 2 ---                   maduro 2 = Ultimate
+  vacuna | texto              atributo: vacuna, data, virus, free
+  todos | texto               sirve para cualquier atributo
+
+  Una línea por frase. Para agregar frases, copia una línea y cámbiala.
+  En estilo.txt hay solo dos etapas: nino = Child y maduro = Adult, Perfect y Ultimate.
+  VitalLink Arena no tiene Baby I ni Baby II (no se pueden traer del VB), por eso no hay
+  "bebe" ni el atributo "null" (que solo existe en los Baby).
+
+Frases de PRIMERA VEZ (1 vez por vida)
+--------------------------------------
+  Algunas frases solo tienen sentido la primera vez ("Hola... ¿este es tu mundo?",
+  "Perdí... ¿así se siente?"). Van en las secciones de "primera vez" de su evento, separadas por
+  etapa (pedido del usuario, 2026-10-06): un Ultimate que llega del Vital Bracelet ya peleó y ya vio
+  mucho; decir "¿Así se gana?" sonaba infantil. Lo nuevo para él es ESTE mundo.
+  - "primera vez nino": Child (todo es nuevo, curioso).
+  - "primera vez maduro": Adult, Perfect y Ultimate (con experiencia; lo nuevo es tu computadora).
+  - Las dos secciones son UN SOLO grupo: dicha una frase de cualquiera, se bloquean las dos.
+  - La PRIMERA vez que el Digimon comenta ese evento en su vida, dice una de ellas.
+  - Dicha una, ninguna del grupo vuelve a salir: se bloquea esa y también las demás.
+  - Si por algún motivo su primer comentario de ese evento fue otra frase, el grupo se bloquea igual.
+  - "Su vida" es la de ESE Digimon en el programa (su cápsula del Laboratorio).
+  - Cada evento lleva su propio grupo: la primera victoria en Batalla aleatoria u Oficial es una
+    cosa y la primera victoria en la ARENA, otra. Excepción: la DERROTA tiene un solo grupo para
+    todos los modos (la primera derrota de su vida, sea en Aleatoria, Oficial o ARENA 2 vs 2).
+  - Mientras su primer comentario no llegue, las frases "de regreso" ("¡Volví!", "He vuelto",
+    "como siempre") no se usan: no tendría sentido decirlas al llegar por primera vez.
+
+Variables (el programa las reemplaza; si no tiene el dato, NO usa esa frase)
+---------
+  {jugador}     tu nombre de jugador (el de la pantalla de inicio)
+  {rival}       especie del rival, si se pudo leer de su sprite NAME
+  {companero}   el otro Digimon del equipo (ARENA)
+  {vv}          Vital Values ganados o perdidos
+
+  Mayúsculas: el programa pone la mayúscula al inicio de cada oración, así que una variable puede
+  empezar la frase ("{rival} fue duro." -> "Dynasmon fue duro."). Tras puntos suspensivos no la
+  pone ("Snif... no entiendo" queda así).
+Cómo se arma una reacción (por eso no hacen falta miles de líneas)
+-------------------------
+  [apertura del Activity Type] + [frase del evento según etapa y atributo] + [cierre del Activity Type]
+
+  - La frase del evento lleva la PERSONALIDAD (atributo) y la MADUREZ (etapa).
+  - La apertura y el cierre llevan la ENERGÍA (Activity Type), ver estilo.txt. No siempre se
+    usan: cada Activity Type tiene su probabilidad (estoico 10 %, activo 40 %...), para que no
+    suene a fórmula.
+  - Estoico: usa la frase más corta y casi nunca agrega nada. Activo: es el que más agrega.
+  - Ultimate: la mitad de esa probabilidad y SOLO apertura, nunca cierre (sus frases ya terminan
+    fuertes; el cierre las contradecía).
+  - Nada se repite, en ninguna etapa (detalle en estilo.txt): sin apertura si la frase ya empieza
+    con una exclamación ("¡Ja! Je..."), sin apertura ni cierre que repita una palabra de la frase
+    ("Snif... no entiendo. ...snif."), y la misma apertura o cierre no vuelve en 3 reacciones.
+  - Nunca repite una frase de las últimas 5 de ese evento.
+  - No reacciona SIEMPRE: en eventos que se repiten mucho, a veces se queda callado.
+
+  Ejemplos de una victoria:
+    Virus Adult Activo:        "¡Ja! " + "Que tome nota quien quiera retarme." + " ¡Vamos por más!"
+    MagnaKidmon (Virus, Ultimate, Activo), sin cierre:
+                               "¡Eso! " + "Victoria. Era inevitable, como siempre."
+    Data Perfect Estoico:      "Victoria. Su patrón de ataque era predecible desde la primera ronda."
+    Virus Child Activo, la frase ya empieza con "Je", así que no lleva apertura:
+                               "Je. Ni siquiera tuve que esforzarme." + " ¡Otra!"
+
+Reglas de estilo que se acordaron
+---------------------------------
+  - Virus y Free pueden usar exclamaciones SUAVES (¡Rayos!, ¡Demonios!, Maldición, Bah, Qué
+    fastidio), nunca lisuras de verdad y nunca hacia el usuario. Los demás atributos no las usan.
+  - El usuario puede ser hombre o mujer: las frases evitan "tranquilo/tranquila", "listo/lista"
+    dirigidos al usuario (se usan formas neutras).
+  - Ultimate (maduro 2): la cima. Pocas palabras y mucha seguridad; cada atributo en su forma
+    más plena (Vacuna: juramento de proteger; Data: sabiduría; Virus: nadie a su altura; Free:
+    libertad serena, "como el viento").
+  - Los Digimon no evolucionan aquí: se evitan frases como "¿qué seré mañana?".
+  - Las frases son cortas a propósito: el globo las muestra enteras sin partirlas.
