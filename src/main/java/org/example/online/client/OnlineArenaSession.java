@@ -28,7 +28,14 @@ final class OnlineArenaSession {
 
     private final Supplier<VsClient> client;
     private final Map<Integer, LobbyDigimon> digimons;
-    private final int myId;
+    private int myId;
+    /**
+     * v13: solo MIRA (pantalla "COMBATES EN VIVO"): el lado "a" a la izquierda, sin minijuegos ni resultado para tu
+     * récord. Los nombres de los dos jugadores, para los textos.
+     */
+    private boolean spectator;
+    private String nameA = "", nameB = "";
+    private Runnable onSpectatorClosed;
     private final Consumer<String> notify;
     private final Consumer<OfficialBattleResult> onResult;
     /** Al cerrar la ventana: (resultado o null, "ya volvió"). Ver OfficialBattleUi.setArenaHooks. */
@@ -64,6 +71,22 @@ final class OnlineArenaSession {
         this.reactInLobby = reactInLobby;
     }
 
+    /** v13: una sesión que solo mira la ARENA de otros (desde la pantalla de la sala). */
+    static OnlineArenaSession spectator(Supplier<VsClient> client, Map<Integer, LobbyDigimon> digimons,
+                                        Consumer<String> notify, String nameA, String nameB, Runnable onClosed) {
+        OnlineArenaSession s = new OnlineArenaSession(client, digimons, -1, notify, null, null, null, null);
+        s.spectator = true;
+        s.nameA = nameA;
+        s.nameB = nameB;
+        s.onSpectatorClosed = onClosed;
+        return s;
+    }
+
+    /** Cierra la ventana de quien mira (p. ej. le toca pelear a él). */
+    void closeSpectator() {
+        if (screen != null) screen.close();
+    }
+
     void handle(JSONObject m) {
         queue.add(m);
         next();
@@ -84,7 +107,7 @@ final class OnlineArenaSession {
             return;
         }
         // Ventana cerrada a media pelea: el servidor la termina igual; solo se anota el final.
-        if (windowClosed && !"arenaEnd".equals(m.optString("t"))) {
+        if (windowClosed && (spectator || !"arenaEnd".equals(m.optString("t")))) {
             done.run();
             return;
         }
@@ -92,7 +115,10 @@ final class OnlineArenaSession {
             case "arenaStart" -> start(m, done);
             case "arenaTurn" -> {
                 apply(m);
-                if (mine(m.optString("side"))) {
+                if (spectator) {
+                    screen.sayText("Turno de " + ("a".equals(m.optString("side")) ? nameA : nameB) + "...");
+                    done.run();
+                } else if (mine(m.optString("side"))) {
                     screen.promptAction(m.optBoolean("canSwitch"), m.optBoolean("wReady"), action -> {
                         client.get().arenaAction(action);
                         done.run();
@@ -133,6 +159,14 @@ final class OnlineArenaSession {
             }
             case "arenaEnd" -> {
                 apply(m);
+                if (spectator) {
+                    ended = true;
+                    String winner = m.optInt("winner") == myId ? nameA : nameB;
+                    screen.showEndText("FIN", "Ganó el equipo de " + winner + "."
+                            + (m.has("reason") ? " (" + m.optString("reason") + ")" : ""));
+                    done.run();
+                    return;
+                }
                 boolean won = m.optInt("winner") == myId;
                 ended = true;
                 wonEnd = won;
@@ -149,12 +183,18 @@ final class OnlineArenaSession {
 
     private void start(JSONObject m, Runnable done) {
         JSONObject a = m.getJSONObject("a"), b = m.getJSONObject("b");
-        mySide = a.getInt("id") == myId ? "a" : "b";
+        if (spectator) myId = a.getInt("id"); // quien mira ve al lado "a" a la izquierda
+        mySide =a.getInt("id") == myId ? "a" : "b";
         JSONObject meInfo = mySide.equals("a") ? a : b, rivalInfo = mySide.equals("a") ? b : a;
         LobbyDigimon mine = digimons.get(myId), rival = digimons.get(rivalInfo.getInt("id"));
         if (mine == null || rival == null || mine.partner == null || rival.partner == null) {
             notify.accept("* No se pudo mostrar la ARENA: faltan los datos de algún Digimon.");
-            client.get().battleDone();
+            if (spectator) {
+                client.get().spectateStop();
+                if (onSpectatorClosed != null) onSpectatorClosed.run();
+            } else {
+                client.get().battleDone();
+            }
             done.run();
             return;
         }
@@ -169,12 +209,20 @@ final class OnlineArenaSession {
 
     private void openScreen(JSONObject m, JSONObject meInfo, JSONObject rivalInfo, LobbyDigimon mine, LobbyDigimon rival,
                             Runnable done) {
-        ArenaFighter[] myTeam = team(mine, meInfo.getJSONArray("team"), "Tu ");
-        ArenaFighter[] rivalTeam = team(rival, rivalInfo.getJSONArray("team"), "Rival ");
+        ArenaFighter[] myTeam = team(mine, meInfo.getJSONArray("team"), spectator ? "" : "Tu ");
+        ArenaFighter[] rivalTeam = team(rival, rivalInfo.getJSONArray("team"), spectator ? "" : "Rival ");
         mirror = new ArenaEngine(ArenaConfig.load(), new Random(), myTeam, rivalTeam);
         screen = new ArenaScreen(mirror);
-        screen.openOnline("ARENA 2 vs 2 online", won -> {
+        String title = spectator ? "Mirando: " + nameA + " vs " + nameB + " (ARENA 2 vs 2)" : "ARENA 2 vs 2 online";
+        screen.openOnline(title, won -> {
             windowClosed = true;
+            if (spectator) {
+                if (!ended) client.get().spectateStop();
+                if (onSpectatorClosed != null) onSpectatorClosed.run();
+                busy = false;
+                next();
+                return;
+            }
             client.get().battleDone();
             if (!ended) notify.accept("* Cerraste la ARENA a media pelea: el servidor la sigue hasta el final.");
             // La pose de victoria o derrota (pedido del usuario): cuando ya volvieron todos, tu puesto 2
@@ -191,7 +239,8 @@ final class OnlineArenaSession {
         });
         apply(m);
         screen.refresh();
-        screen.sayText("¡Comienza la ARENA 2 vs 2 online!");
+        screen.sayText(spectator ? "Estás mirando la ARENA de " + nameA + " contra " + nameB + "."
+                : "¡Comienza la ARENA 2 vs 2 online!");
         done.run();
     }
 

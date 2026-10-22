@@ -148,6 +148,30 @@ public class VsClient {
         send(Protocol.msg("tReady"));
     }
 
+    // ---- Combates en vivo y ranking (v13) ----
+
+    public void spectateList() {
+        send(Protocol.msg("specList"));
+    }
+
+    public void spectateWatch(int fightId) {
+        send(Protocol.msg("specWatch").put("id", fightId));
+    }
+
+    public void spectateStop() {
+        send(Protocol.msg("specStop"));
+    }
+
+    /** mode = Protocol.MODE_ORIGINAL, MODE_FREE o MODE_ARENA. */
+    public void rankingList(String mode) {
+        send(Protocol.msg("rankList").put("mode", mode));
+    }
+
+    /** Digimon tuyos que murieron: salen del ranking. */
+    public void rankingGone(java.util.Collection<String> uids) {
+        send(Protocol.msg("rankGone").put("uids", new org.json.JSONArray(uids)));
+    }
+
     public void moveTo(double x, double y) {
         send(Protocol.msg("move").put("x", Math.round(x)).put("y", Math.round(y)));
     }

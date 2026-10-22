@@ -155,6 +155,13 @@ public class BattlePresentationScreen {
         render();
     }
 
+    /** Texto final para quien MIRA la pelea (pantalla de combates en vivo, v13): en vez de ¡VICTORIA!/DERROTA... */
+    private String endText;
+
+    public void setEndText(String text) {
+        this.endText = text;
+    }
+
     public void play(BattleEngine.BattleResult result, DimSpriteSet playerSprites, DimSpriteSet enemySprites,
                      BattleEngine.Combatant playerCombatant, BattleEngine.Combatant enemyCombatant,
                      Runnable onComplete) {
@@ -178,7 +185,8 @@ public class BattlePresentationScreen {
         // Solo el texto del resultado: la pose y el sonido de victoria o derrota llegan cuando el
         // Digimon vuelve al escritorio o a la sala (pedido del usuario, 2026-10-05).
         at(t, () -> {
-            if (result.draw) showBig("EMPATE", YELLOW, 3, null);
+            if (endText != null) showBig(endText, YELLOW, endText.length() > 13 ? 2 : 3, null);
+            else if (result.draw) showBig("EMPATE", YELLOW, 3, null);
             else if (result.won) showBig("¡VICTORIA!", Color.rgb(94, 221, 138), 3, null);
             else showBig("DERROTA...", Color.rgb(255, 106, 90), 3, null);
         });

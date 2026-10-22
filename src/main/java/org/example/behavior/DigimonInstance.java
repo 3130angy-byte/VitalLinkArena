@@ -902,6 +902,8 @@ public class DigimonInstance {
                 second == null ? null : second.speciesForOnline());
         // v12: el premio encendido se ve al doble para todos (sala, coliseo y ARENA).
         team.put("big", first.prizeOn);
+        // v13: quién es para el ranking (su cápsula del Laboratorio; nunca se reparte a los demás jugadores).
+        if (first.capsuleId != null) team.put("uid", first.capsuleId);
         JSONObject partner = team.optJSONObject("partner");
         if (partner != null && second != null) partner.put("big", second.prizeOn);
         return team;

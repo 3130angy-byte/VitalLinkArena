@@ -56,12 +56,12 @@ import java.util.function.Supplier;
  */
 final class OfficialBattleUi {
 
-    private static final String PANEL_STYLE = "-fx-background-color: rgba(12,22,44,0.96); -fx-background-radius: 10;"
+    static final String PANEL_STYLE = "-fx-background-color: rgba(12,22,44,0.96); -fx-background-radius: 10;"
             + " -fx-border-color: #5ab8ff; -fx-border-radius: 10; -fx-border-width: 2;";
-    private static final String TEXT_STYLE = "-fx-text-fill: white; -fx-font-size: 12px;";
-    private static final String BUTTON_STYLE = "-fx-background-color: #1f6fb2; -fx-text-fill: white; -fx-font-weight: bold;"
+    static final String TEXT_STYLE = "-fx-text-fill: white; -fx-font-size: 12px;";
+    static final String BUTTON_STYLE = "-fx-background-color: #1f6fb2; -fx-text-fill: white; -fx-font-weight: bold;"
             + " -fx-background-radius: 6; -fx-cursor: hand;";
-    private static final String SELECTED_STYLE = BUTTON_STYLE + " -fx-background-color: #f0b428; -fx-text-fill: #1a1a1a;";
+    static final String SELECTED_STYLE = BUTTON_STYLE + " -fx-background-color: #f0b428; -fx-text-fill: #1a1a1a;";
 
     /** Capa encima del mapa donde van los diálogos (deja pasar los clics al mapa fuera de ellos). */
     final StackPane layer = new StackPane();
@@ -409,12 +409,12 @@ final class OfficialBattleUi {
     }
 
     /** Solo lo que la animación necesita: HP máximo, atributo y ataque pequeño (nunca DP/AP del rival). */
-    private static BattleEngine.Combatant combatant(JSONObject side) {
+    static BattleEngine.Combatant combatant(JSONObject side) {
         return new BattleEngine.Combatant(0, side.getInt("maxHp"), 0, side.getInt("attribute"),
                 side.getInt("small"), -1, 2);
     }
 
-    private static DimSpriteSet spriteSet(LobbyDigimon d) {
+    static DimSpriteSet spriteSet(LobbyDigimon d) {
         Image idle = d.fullFrames[Protocol.FRAME_IDLE_1];
         DimSpriteSet set = new DimSpriteSet(VPetStageTier.CHILD_PLUS, (int) idle.getWidth(), (int) idle.getHeight());
         set.put(SpriteRole.IDLE_1, idle);

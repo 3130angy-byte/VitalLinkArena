@@ -87,6 +87,10 @@ class ClientConnection implements Runnable {
     volatile int version;
     /** Torneos: "listo" por combate y crear/inscribirse, con tope para que nadie inunde al organizador. */
     private final RateLimiter tournamentLimiter = new RateLimiter(2, 6);
+    /** v13: pedir la lista de combates o la tabla de posiciones (la pantalla las refresca cada pocos segundos). */
+    private final RateLimiter infoLimiter = new RateLimiter(3, 10);
+    /** v13: quién es su Digimon del puesto 1 para el ranking ("" = cliente viejo sin uid). */
+    volatile String uid = "";
 
     ClientConnection(VsServer server, Socket socket, ServerConfig config) throws IOException {
         this.server = server;
@@ -268,6 +272,21 @@ class ClientConnection implements Runnable {
             case "tCreate", "tJoin", "tAnswer", "tStart", "tCancel", "tLeave", "tReady" -> {
                 if (!tournamentLimiter.tryAcquire()) return true;
                 server.tournaments().handle(this, type, m);
+            }
+            // v13: pantalla "COMBATES EN VIVO" y tabla de posiciones (ranking).
+            case "specList" -> {
+                if (infoLimiter.tryAcquire()) send(server.spectate().list());
+            }
+            case "specWatch" -> {
+                if (infoLimiter.tryAcquire()) server.spectate().watch(this, m.optInt("id", -1));
+            }
+            case "specStop" -> server.spectate().stopWatching(this);
+            case "rankList" -> {
+                String mode = m.optString("mode", "");
+                if (infoLimiter.tryAcquire() && Protocol.isValidMode(mode)) send(server.ranking().list(this, mode));
+            }
+            case "rankGone" -> {
+                if (infoLimiter.tryAcquire()) server.ranking().gone(this, Ranking.uids(m.optJSONArray("uids")));
             }
             case "ping" -> { /* basta con haber llegado: reinicia la espera de inactividad */ }
             default -> { /* tipo desconocido: se ignora, sin cortar (compatibilidad futura) */ }

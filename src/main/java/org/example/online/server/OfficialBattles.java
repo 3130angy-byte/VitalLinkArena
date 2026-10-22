@@ -198,6 +198,7 @@ final class OfficialBattles {
     void arenaFinished(OnlineArenaMatch match, ClientConnection a, ClientConnection b, int winnerId) {
         java.util.function.IntConsumer onWinner = tournamentArenas.remove(match);
         if (onWinner != null) onWinner.accept(winnerId);
+        server.ranking().record(winnerId == a.id ? a : b, winnerId == a.id ? b : a, Protocol.MODE_ARENA); // v13
         arenas.remove(a.id, match);
         arenas.remove(b.id, match);
         timers.schedule(() -> {
@@ -233,6 +234,12 @@ final class OfficialBattles {
 
     synchronized void battleDone(ClientConnection c) {
         c.inBattle = false;
+        server.spectate().battleDone(c);
+    }
+
+    /** v13: la pantalla de combates de la sala. */
+    Spectate spectate() {
+        return server.spectate();
     }
 
     // ---------------------------------------------------------------- la pelea
@@ -270,11 +277,14 @@ final class OfficialBattles {
         a.available = b.available = false; // tras pelear, cada uno vuelve a anotarse con el NPC
         a.send(msg);
         b.send(msg);
+        server.spectate().battleStarted(a, b, msg, mode, tournament); // v13: se puede mirar desde la pantalla de la sala
         timers.schedule(() -> {
             a.inBattle = false;
             b.inBattle = false;
+            server.spectate().expire(a, b);
         }, BATTLE_SAFETY_SECONDS, TimeUnit.SECONDS);
 
+        if (winner != 0) server.ranking().record(winner == a.id ? a : b, winner == a.id ? b : a, mode); // v13
         String outcome = winner == 0 ? "empate" : "ganó " + (winner == a.id ? a.name : b.name);
         VsServer.log(Protocol.modeName(mode) + ": " + a.name + " vs " + b.name + " -> " + outcome
                 + " (HP " + hpA + "-" + hpB + ", daño " + damageA + "-" + damageB + ")");

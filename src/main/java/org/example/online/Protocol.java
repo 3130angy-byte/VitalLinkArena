@@ -76,8 +76,18 @@ public final class Protocol {
      *   servidor → cliente: tUpdate {max, tournaments:[...], champions:[...]} (a todos los v12 en cada cambio),
      *     tReadyAsk {id, round, opponent, species, copy, seconds}, tNotice {text, sound}, tPrize {id, mode}
      *   "battle" y "arenaStart" llevan "tournament" (texto) cuando son de un torneo.
+     * 13: COMBATES EN VIVO y RANKING (2026-10-22, conjuntos 3 y 4 de la actualización conjunta). Solo AGREGA
+     * mensajes: los clientes v10-v12 siguen entrando (no ven la pantalla ni la tabla). Un cliente v13 no entra a un
+     * servidor v12 (regla de siempre: el anfitrión actualiza su servidor).
+     *   "digimon" puede traer "uid" (quién es ese Digimon para el ranking: cápsula, vida o copia; no se reparte).
+     *   cliente → servidor: specList {}, specWatch {id}, specStop {}, rankList {mode}, rankGone {uids:[...]}
+     *     (Digimon que MURIERON: salen del ranking; solo cuenta para los del mismo dueño)
+     *   servidor → cliente: specList {fights:[{id, mode, tournament, a:{id,name,species,copy}, b, seconds,
+     *     watchers}]}, specBattle {fight, a, b, battle:{...el "battle" de siempre}}, specArena {fight, names, m:{...un
+     *     mensaje arena* de la partida}}, specEnded {reason}, rankList {mode, month, days, rows:[{pos, species,
+     *     owner, wins, losses, copy, mine, current}]}
      */
-    public static final int VERSION = 12;
+    public static final int VERSION = 13;
     /** Torneos: cupos posibles (decisión del usuario: hasta 16). */
     public static final int[] TOURNAMENT_SIZES = {4, 8, 16};
     /** El cliente más nuevo que no conoce los torneos (los mensajes de torneo solo van a v12 o más). */

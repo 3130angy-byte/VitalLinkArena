@@ -106,6 +106,7 @@ public final class LobbyMapRenderer {
         drawTrainingMats(g);
         leaderboard(g, 17 * T, 12 * T);
         pc(g, 34 * T, 12 * T);
+        liveScreen(g, 39 * T, 12 * T);
         drawScoreboard(g);
         drawPortalBase(g);
         drawEntranceDoors(g);
@@ -123,7 +124,9 @@ public final class LobbyMapRenderer {
         gb.setImageSmoothing(false);
         gb.drawImage(pixels, 0, 0, w * s, h * s);
         gb.scale(s, s);
-        for (LobbyMap.Feature f : LobbyMap.FEATURES) label(gb, f.label(), f.x(), f.y() - (f.y() < 6 * T ? 9 : 14));
+        for (LobbyMap.Feature f : LobbyMap.FEATURES) {
+            label(gb, f.label(), f.x(), f.y() - (f.y() < 6 * T ? 9 : f.type() == LobbyMap.SCREEN ? 20 : 14));
+        }
         label(gb, "Training Room", 6 * T, 5 * T - 6);
         label(gb, "Entrada", 26 * T + T / 2.0, 27 * T - 4);
         return big.snapshot(params, null);
@@ -153,7 +156,7 @@ public final class LobbyMapRenderer {
                 else hallFloor(g, col, row);
             }
             case LobbyMap.COUNTER -> counter(g, col, row);
-            case LobbyMap.TERMINAL, LobbyMap.PC -> wallFace(g, col, row); // el aparato va encima (2 casillas)
+            case LobbyMap.TERMINAL, LobbyMap.PC, LobbyMap.SCREEN -> wallFace(g, col, row); // el aparato va encima
             case LobbyMap.PORTAL -> metalFloor(g, x, y);
             default -> wall(g, col, row);
         }
@@ -367,6 +370,32 @@ public final class LobbyMapRenderer {
             r(g, x + 9, y + 3 + i * 3, 17 - i * 4, 2, SCREEN);
         }
         r(g, x + 3, y + 13, 26, 2, Color.rgb(60, 70, 90));
+    }
+
+    /**
+     * Pantalla "COMBATES EN VIVO" (v13): 3 casillas de ancho, sobresale hacia arriba del muro como el marcador.
+     * Dos Digimon frente a frente, "VS" y la luz roja de "en vivo".
+     */
+    private static void liveScreen(GraphicsContext g, int x, int y) {
+        int w = 3 * T, top = y - 9, h = 22;
+        r(g, x, top, w, h, WALL_EDGE);
+        r(g, x + 1, top + 1, w - 2, h - 2, DARK_METAL);
+        r(g, x + 3, top + 3, w - 6, h - 7, Color.rgb(12, 26, 52));
+        r(g, x + 3, top + 3, w - 6, 1, Color.rgb(40, 90, 150));
+        // suelo de la arena en la pantalla
+        r(g, x + 4, top + 13, w - 8, 2, Color.rgb(176, 140, 90));
+        // dos siluetas frente a frente
+        r(g, x + 8, top + 7, 5, 6, Color.rgb(255, 150, 60));
+        r(g, x + 9, top + 6, 3, 1, Color.rgb(255, 150, 60));
+        r(g, x + 12, top + 8, 1, 1, Color.rgb(30, 30, 40));
+        r(g, x + w - 13, top + 7, 5, 6, Color.rgb(90, 160, 255));
+        r(g, x + w - 12, top + 6, 3, 1, Color.rgb(90, 160, 255));
+        r(g, x + w - 13, top + 8, 1, 1, Color.rgb(30, 30, 40));
+        pixelText(g, "VS", x + (w - pixelTextWidth("VS", 1)) / 2, top + 6, 1, Color.rgb(255, 210, 70));
+        // luz de "en vivo"
+        r(g, x + 4, top + 4, 2, 2, Color.rgb(255, 70, 70));
+        // pie
+        r(g, x + 2, top + h - 4, w - 4, 2, Color.rgb(60, 70, 90));
     }
 
     private static void pc(GraphicsContext g, int x, int y) {

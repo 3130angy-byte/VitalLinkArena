@@ -4,7 +4,7 @@ plugins {
 }
 
 // VitalLink Arena -- versión con Versionado Semántico (SemVer). jpackage solo acepta números: 0.4.0.
-def releaseVersion = '0.4.0-beta.1'
+def releaseVersion = '0.4.0-beta.2'
 def numericVersion = '0.4.0'
 version = releaseVersion
 

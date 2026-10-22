@@ -49,6 +49,8 @@ final class OnlineArenaMatch {
     private ScheduledFuture<?> timeout;
     /** v12: nombre del torneo si es un combate de torneo (null = reto normal). */
     volatile String tournament;
+    /** v13: este combate en la pantalla "COMBATES EN VIVO" de la sala (quienes lo miran). */
+    private Spectate.Fight spec;
 
     OnlineArenaMatch(OfficialBattles battles, ClientConnection a, ClientConnection b, ScheduledExecutorService timers) {
         this.battles = battles;
@@ -86,6 +88,7 @@ final class OnlineArenaMatch {
         if (tournament != null) msg.put("tournament", tournament);
         send(0, msg);
         send(1, msg);
+        spec = battles.spectate().arenaStarted(this, players[0], players[1], tournament);
         VsServer.log("ARENA 2 vs 2: " + players[0].name + " vs " + players[1].name);
         nextTurn(0);
     }
@@ -113,6 +116,7 @@ final class OnlineArenaMatch {
                 .put("state", engine.stateJson()).put("seconds", ACTION_SECONDS);
         send(0, msg);
         send(1, msg);
+        toWatchers(msg);
         schedule(ACTION_SECONDS, this::actionTimedOut);
     }
 
@@ -129,6 +133,7 @@ final class OnlineArenaMatch {
                 JSONObject msg = Protocol.msg("arenaSwitch").put("side", sideName(turn)).put("state", engine.stateJson());
                 send(0, msg);
                 send(1, msg);
+                toWatchers(msg);
                 nextTurn(1 - turn);
             }
             case "w" -> {
@@ -203,6 +208,7 @@ final class OnlineArenaMatch {
                 .put("state", engine.stateJson());
         send(0, msg);
         send(1, msg);
+        toWatchers(msg);
         nextTurn(1 - turn);
     }
 
@@ -222,8 +228,27 @@ final class OnlineArenaMatch {
         if (reason != null) msg.put("reason", reason);
         send(0, msg);
         send(1, msg);
+        toWatchers(msg);
         battles.arenaFinished(this, players[0], players[1], players[winnerSide].id);
         VsServer.log("ARENA 2 vs 2: ganó " + players[winnerSide].name + (reason != null ? " (" + reason + ")" : ""));
+    }
+
+    /** v13: lo mismo que ven los jugadores, para quienes miran desde la pantalla de la sala. */
+    private void toWatchers(JSONObject msg) {
+        if (spec != null) battles.spectate().arenaMessage(spec, msg);
+    }
+
+    /**
+     * v13: un espectador que llega a media pelea recibe un "arenaStart" con el estado de AHORA (los equipos y la vida
+     * de cada uno); null si la partida ya terminó.
+     */
+    synchronized JSONObject spectatorStart() {
+        if (phase == Phase.OVER) return null;
+        JSONObject msg = Protocol.msg("arenaStart")
+                .put("a", sideInfo(0)).put("b", sideInfo(1))
+                .put("state", engine.stateJson());
+        if (tournament != null) msg.put("tournament", tournament);
+        return msg;
     }
 
     boolean involves(ClientConnection c) {

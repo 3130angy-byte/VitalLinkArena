@@ -35,6 +35,8 @@ final class ServerConfig {
     final int maxTournaments;
     final int readySeconds;
     final int reconnectSeconds;
+    /** Ranking (protocolo v13): un Digimon que no entra a la sala en estos días sale de la tabla. */
+    final int rankingDays;
 
     private ServerConfig(Properties p) {
         ranks = DigimonRank.from(p);
@@ -45,6 +47,7 @@ final class ServerConfig {
         maxTournaments = Math.max(1, intOf(p, "torneo.maximoALaVez", 2));
         readySeconds = Math.max(15, intOf(p, "torneo.segundosParaListo", 60));
         reconnectSeconds = Math.max(0, intOf(p, "torneo.segundosParaVolver", 60));
+        rankingDays = Math.max(1, intOf(p, "ranking.diasSinEntrar", 14));
     }
 
     static ServerConfig load() {
@@ -88,6 +91,10 @@ final class ServerConfig {
                 torneo.maximoALaVez=2
                 torneo.segundosParaListo=60
                 torneo.segundosParaVolver=60
+                #
+                # Ranking: un Digimon que no entra a la sala en estos días sale de la tabla (además, la tabla
+                # se reinicia cada mes y las copias del LAB solo figuran el día en que pelearon).
+                ranking.diasSinEntrar=14
                 """;
         try {
             Files.writeString(FILE, text, StandardCharsets.UTF_8);

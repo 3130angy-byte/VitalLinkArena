@@ -302,6 +302,26 @@ public final class ArenaScreen {
         addExitButton();
     }
 
+    /**
+     * Final para quien MIRA la ARENA desde la pantalla de la sala (v13): "FIN" y quién ganó, sin WIN/LOSE (no es
+     * su pelea).
+     */
+    public void showEndText(String big, String text) {
+        if (finished) return;
+        finished = true;
+        refreshAll();
+        showActions(false);
+        minigameLayer.getChildren().clear();
+        stopClock();
+        endHold = true;
+        showBig(big);
+        say(text);
+        addExitButton();
+    }
+
+    /** El texto grande del final se queda en pantalla. */
+    private boolean endHold;
+
     public void refresh() {
         refreshAll();
     }
@@ -1961,7 +1981,7 @@ public final class ArenaScreen {
         pop.setToX(1);
         pop.setToY(1);
         pop.play();
-        if (finished && (text.startsWith("WIN") || text.startsWith("LOSE"))) return; // el final se queda
+        if (finished && (endHold || text.startsWith("WIN") || text.startsWith("LOSE"))) return; // el final se queda
         FadeTransition f = new FadeTransition(Duration.seconds(0.6), bigText);
         f.setDelay(Duration.seconds(0.7));
         f.setToValue(0);

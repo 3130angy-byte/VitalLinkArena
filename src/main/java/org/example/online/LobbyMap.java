@@ -44,6 +44,12 @@ public final class LobbyMap {
     /** PC (como en Re:Digitize): conecta con el Laboratorio para elegir el equipo (puestos 1 y 2). */
     public static final char PC = 'K';
     public static final char PORTAL = 'P';
+    /**
+     * Pantalla grande "COMBATES EN VIVO" en el muro norte del pasillo (v13): al acercarse se eligen las peleas que
+     * están ocurriendo para mirarlas. Es parte del muro: no cambia por dónde se camina (servidores y clientes viejos
+     * calculan los mismos caminos).
+     */
+    public static final char SCREEN = 'V';
     /** Mueble o adorno (macetas, bancas, sacos de boxeo...): se dibuja encima del piso y no se pisa. */
     public static final char PROP = 'D';
     public static final char ENTRANCE = 'E';
@@ -88,8 +94,11 @@ public final class LobbyMap {
                     "¡Hola! Aquí creas torneos y te inscribes en los de los demás.",
                     center(31), center(4)),
             new Feature(TERMINAL, "Tabla de posiciones",
-                    "Tabla de posiciones. (Próximamente)",
+                    "Tabla de posiciones: las victorias de cada Digimon este mes.",
                     (17 + 1) * TILE, center(12)),
+            new Feature(SCREEN, "Combates en vivo",
+                    "Pantalla de la sala: mira las peleas que están ocurriendo.",
+                    (39 + 1.5) * TILE, center(12)),
             new Feature(PC, "PC",
                     "PC: abre tu Laboratorio para elegir tu equipo (puesto 1 y 2).",
                     (34 + 1) * TILE, center(12))
@@ -117,6 +126,7 @@ public final class LobbyMap {
         fill(g, 46, 13, 48, 17, PORTAL);
         fill(g, 17, 12, 18, 12, TERMINAL);        // terminal en el muro norte
         fill(g, 34, 12, 35, 12, PC);              // PC en el muro norte, frente a la terminal
+        fill(g, 39, 12, 41, 12, SCREEN);          // pantalla de combates en vivo (v13), también en el muro
         for (Prop p : PROPS) fill(g, p.col(), p.row(), p.col() + p.w() - 1, p.row() + p.h() - 1, PROP);
         return g;
     }

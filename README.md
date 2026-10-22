@@ -8,12 +8,12 @@ it and the program gives you a VS DIM with the result of its battles, ready to
 send back to your Vital Bracelet.
 
 > Non-profit fan project, **not affiliated with or endorsed by Bandai**.
-> **Version v0.4.0-beta.1** (public beta).
+> **Version v0.4.0-beta.2** (public beta).
 > The game itself is in Spanish.
 
 ## Download and play (Windows)
 
-1. Download `VitalLink Arena v0.4.0-beta.1.zip` from **[Releases](../../releases)**.
+1. Download `VitalLink Arena v0.4.0-beta.2.zip` from **[Releases](../../releases)**.
    Java is included: nothing else to install.
 2. Unzip it and open `VitalLink Arena\VitalLink Arena.exe`.
    If Windows says *"Windows protected your PC"*: **More info → Run anyway**
@@ -89,6 +89,14 @@ Left click = move your Digimon. Right click = menu.
     pixel art** on the desktop, in the lobby and in battles. Toggle it in its
     menu (*GRANDE: SÍ / NO*); it is saved in its capsule. In ARENA, both team
     members win it.
+  - **COMBATES EN VIVO** screen (north wall, right of the PC): watch the fights
+    happening in the lobby. Original and Libre play from the start in your lobby
+    window; ARENA is shown live in its own window.
+  - **Tabla de posiciones** terminal (leaderboard): this month's wins of each
+    Digimon with its owner's name, one table per mode (Original, Libre and
+    ARENA). Challenges and tournament matches count (draws don't). It resets
+    every month; a Digimon that doesn't enter the lobby for 2 weeks drops off,
+    and Lab copies only appear on the day they fought.
   - The PC in the lobby opens your Lab to change your team.
 - **LAB** (Laboratory): your Digimon saved as capsules (copies of your VS DIMs),
   a Digidex of species seen, battle history and rivals. Swap who is on the
@@ -127,7 +135,8 @@ from; your own PC always gets in. Files (in `DigimonProjectData\config`):
 from the list kicks them from the lobby within seconds. A connection that does
 not identify itself within 10 s is dropped, and an IP with many rejected
 requests or names in a row is blocked for 10 minutes. Rules (ranks, tournaments,
-ARENA) live in the `.properties` files of that folder. Never expose port 7777
+ARENA, days for the leaderboard) live in the `.properties` files of that folder; the
+leaderboard itself is `ranking.json` there. Never expose port 7777
 with `tailscale serve` or `funnel`.
 
 ## For developers: reading and writing VS DIM files

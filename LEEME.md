@@ -8,11 +8,11 @@ lo **retiras** y el programa te da una VS DIM con el resultado de sus batallas
 para devolverlo al Vital Bracelet.
 
 > Proyecto de fans sin fines de lucro, **no afiliado ni respaldado por Bandai**.
-> **Versión v0.4.0-beta.1** (beta pública).
+> **Versión v0.4.0-beta.2** (beta pública).
 
 ## Descargar y jugar (Windows)
 
-1. Descarga `VitalLink Arena v0.4.0-beta.1.zip` desde **[Releases](../../releases)**.
+1. Descarga `VitalLink Arena v0.4.0-beta.2.zip` desde **[Releases](../../releases)**.
    Trae Java incluido: no hay que instalar nada más.
 2. Descomprime y abre `VitalLink Arena\VitalLink Arena.exe`.
    Si Windows avisa *"Windows protegió su PC"*: **Más información → Ejecutar de todas formas**
@@ -89,6 +89,14 @@ Clic izquierdo = mover a tu Digimon. Clic derecho = menú.
     pixel art** en el escritorio, la sala y las peleas. Se prende y se apaga en
     su menú (casilla *GRANDE: SÍ / NO*) y se guarda en su cápsula. En la ARENA
     lo ganan los 2 del equipo.
+  - Pantalla **COMBATES EN VIVO** (muro norte, a la derecha de la PC): mira las
+    peleas que están ocurriendo. Original y Libre se ven desde el principio en
+    tu ventana de la sala; la ARENA, en vivo en su propia ventana.
+  - Terminal **Tabla de posiciones**: el ranking del mes, con las victorias de
+    cada Digimon y el nombre de su dueño, una tabla por modo (Original, Libre y
+    ARENA). Cuentan los retos y los combates de torneo (los empates no). Se
+    reinicia cada mes; sale el Digimon que no entra a la sala en 2 semanas, y
+    las copias solo figuran el día en que pelearon.
   - La PC de la sala abre tu Laboratorio para cambiar tu equipo.
 - **LAB** (Laboratorio): tus Digimon guardados como cápsulas (copias de tus VS
   DIM), Digidex de especies vistas, historial de batallas y rivales. Cambias
@@ -125,7 +133,8 @@ cuenta) y `solicitudes-acceso.txt` (pedidos pendientes, vencen a las 24 h).
 Retirar a alguien de la lista lo saca de la sala en unos segundos. Una conexión
 que no se identifica en 10 s se corta, y una IP con muchos pedidos o nombres
 rechazados seguidos queda bloqueada 10 minutos. Las reglas (rangos, torneos,
-ARENA) se cambian en los `.properties` de esa carpeta. Nunca publiques el puerto
+ARENA, días del ranking) se cambian en los `.properties` de esa carpeta; el ranking
+es su `ranking.json`. Nunca publiques el puerto
 7777 con `tailscale serve` ni `funnel`.
 
 ## Para desarrolladores: leer y escribir VS DIM

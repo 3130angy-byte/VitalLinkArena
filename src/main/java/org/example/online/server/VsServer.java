@@ -49,6 +49,9 @@ public class VsServer {
     private final ServerConfig config = ServerConfig.load();
     private final OfficialBattles battles = new OfficialBattles(this, config);
     private final Tournaments tournaments = new Tournaments(this, battles, config);
+    /** v13: la pantalla "COMBATES EN VIVO" y la tabla de posiciones (ranking). */
+    private final Spectate spectate = new Spectate();
+    private final Ranking ranking = new Ranking(config);
     private final Map<Integer, ClientConnection> clients = new ConcurrentHashMap<>();
     /** Todas las conexiones abiertas (también las que aún no mandaron hello), para el límite por IP y el apagado. */
     private final Set<ClientConnection> connections = ConcurrentHashMap.newKeySet();
@@ -428,6 +431,10 @@ public class VsServer {
 
     Tournaments tournaments() { return tournaments; }
 
+    Spectate spectate() { return spectate; }
+
+    Ranking ranking() { return ranking; }
+
     /** Jugador en la sala por su nombre (sin mayúsculas), o null: los torneos siguen a cada uno por su nombre. */
     ClientConnection playerNamed(String name) {
         for (ClientConnection c : clients.values()) if (c.name != null && c.name.equalsIgnoreCase(name)) return c;
@@ -476,6 +483,7 @@ public class VsServer {
         if (connection.id <= 0 || clients.remove(connection.id) == null) return;
         battles.onLeave(connection);
         tournaments.onLeave(connection);
+        spectate.onLeave(connection);
         broadcast(Protocol.msg("left").put("id", connection.id).put("name", connection.name));
         log(connection.name + " (#" + connection.id + ") salió. Jugadores: " + clients.size());
         publishOnline();
@@ -529,7 +537,10 @@ public class VsServer {
             from.partnerStats = null;
         }
         from.lookKey = Tournaments.lookKey(validated);
+        // v13: quién es este Digimon para el ranking (su cápsula, su vida o su copia); nunca se reparte.
+        from.uid = Ranking.cleanUid(validated.optString("uid", ""));
         from.digimon = message;
+        ranking.seen(from);
         broadcast(message);
         log(from.name + " (#" + from.id + ") trajo a " + message.getString("species")
                 + " (rango " + message.getString("rank") + ")");

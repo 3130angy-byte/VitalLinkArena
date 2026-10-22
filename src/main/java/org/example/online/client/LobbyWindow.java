@@ -95,6 +95,9 @@ public final class LobbyWindow {
     private OfficialBattleUi battleUi;
     /** Torneos (v12): diálogo de la Recepción de torneos, el aviso de LISTO y el premio. */
     private TournamentUi tournamentUi;
+    /** v13: la pantalla "COMBATES EN VIVO" y la tabla de posiciones (ranking). */
+    private SpectateUi spectateUi;
+    private RankingUi rankingUi;
     /** El nombre con que entré de verdad (una cuenta aceptada entra con su nombre registrado). */
     private String myName;
     private static Consumer<String> onTournamentPrize = mode -> { };
@@ -236,6 +239,11 @@ public final class LobbyWindow {
             resendTeamWhenFree = true;      // y, al terminar de ver la final, todos lo ven al doble
         });
         center.getChildren().add(tournamentUi.layer);
+        spectateUi = new SpectateUi(() -> client, digimons, root, center, canvas.getWidth(), canvas.getHeight(),
+                this::addChatLine);
+        center.getChildren().add(spectateUi.layer);
+        rankingUi = new RankingUi(() -> client);
+        center.getChildren().add(rankingUi.layer);
         root.setTop(status);
         root.setRight(chatBox);
         root.setStyle("-fx-background-color: #1b1f2a;");
@@ -306,6 +314,13 @@ public final class LobbyWindow {
     }
 
     private void onMessage(JSONObject m) {
+        String kind = m.optString("t");
+        // v13: te toca pelear (un reto aceptado o el LISTO de tu torneo): se deja de mirar la pelea de otros.
+        if (spectateUi != null && (kind.equals("battle") || kind.equals("arenaStart") || kind.equals("tReadyAsk"))) {
+            spectateUi.stopForOwnFight();
+        }
+        if (spectateUi != null && spectateUi.handle(m)) return;
+        if (rankingUi != null && rankingUi.handle(m)) return;
         if (tournamentUi != null) {
             String type = m.optString("t");
             if (type.equals("battle") || type.equals("arenaStart")) tournamentUi.battleStarted();
@@ -317,6 +332,9 @@ public final class LobbyWindow {
                 myId = m.getInt("id");
                 JSONObject team = currentTeam();
                 if (team != null) client.sendDigimon(team);
+                // v13: los Digimon tuyos que murieron salen del ranking de este servidor.
+                java.util.Set<String> gone = RankingGone.pending();
+                if (!gone.isEmpty()) client.rankingGone(gone);
                 // El servidor dice con qué nombre entraste: una cuenta ya aceptada entra con el suyo registrado.
                 String entered = m.optString("name", name);
                 myName = entered;
@@ -611,6 +629,7 @@ public final class LobbyWindow {
         boolean nearRanking = false;
         boolean nearReception = false;
         boolean nearPc = false;
+        boolean nearScreen = false, nearTerminal = false;
         if (me != null) {
             for (LobbyMap.Feature f : LobbyMap.FEATURES) {
                 boolean isNear = Math.hypot(me[0] - f.x(), me[1] - f.y()) <= NEAR_DISTANCE;
@@ -621,6 +640,14 @@ public final class LobbyWindow {
                 }
                 if (f.type() == LobbyMap.NPC_RECEPTION) { // v12: abre el diálogo de torneos al llegar
                     nearReception = isNear;
+                    continue;
+                }
+                if (f.type() == LobbyMap.SCREEN) { // v13: combates en vivo
+                    nearScreen = isNear;
+                    continue;
+                }
+                if (f.type() == LobbyMap.TERMINAL) { // v13: tabla de posiciones
+                    nearTerminal = isNear;
                     continue;
                 }
                 if (isNear) {
@@ -637,6 +664,8 @@ public final class LobbyWindow {
         }
         if (battleUi != null) battleUi.setNearNpc(nearRanking);
         if (tournamentUi != null) tournamentUi.setNearNpc(nearReception);
+        if (spectateUi != null) spectateUi.setNearScreen(nearScreen);
+        if (rankingUi != null) rankingUi.setNear(nearTerminal);
         // La PC abre el Laboratorio (equipo: puestos 1 y 2) al LLEGAR, no en cada frame.
         if (nearPc && !wasNearPc) LabWindow.open();
         wasNearPc = nearPc;
