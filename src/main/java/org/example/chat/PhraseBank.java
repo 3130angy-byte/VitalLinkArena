@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,22 +25,19 @@ import java.util.regex.Pattern;
 public final class PhraseBank {
 
     public static final String[] FILES = {"peleas.txt", "compania.txt"};
-    /** "fijo" = sin aperturas ni cierres del Activity Type (no hay estilo para ese tono): solo atributo y etapa. */
+    /** "fijo" = la frase exacta de su atributo y etapa (ni siquiera la "más corta" del estoico). */
     private static final Pattern TONE = Pattern.compile("Tono: (bueno|malo|neutro|fijo)");
 
-    /** Un evento: tono (para el estilo) y sus frases por sección ("nino", "maduro", "primera vez nino"...). */
+    /** Un evento: tono y sus frases por sección ("nino", "maduro", "primera vez nino"...). */
     public record Event(String name, String tone, Map<String, List<Phrase>> sections) {}
 
     /** Una frase: atributo ("vacuna", "data", "virus", "free" o "todos") y texto con variables. */
     public record Phrase(String attr, String text) {}
 
     private final Map<String, Event> events;
-    /** "activo|maduro|bueno|antes" -> aperturas o cierres de estilo.txt. */
-    private final Map<String, List<String>> style;
 
-    private PhraseBank(Map<String, Event> events, Map<String, List<String>> style) {
+    private PhraseBank(Map<String, Event> events) {
         this.events = events;
-        this.style = style;
     }
 
     private static PhraseBank packaged;
@@ -56,15 +52,11 @@ public final class PhraseBank {
                         if (r != null) readEvents(new BufferedReader(r), ev);
                     }
                 }
-                Map<String, List<String>> st = new HashMap<>();
-                try (Reader r = resource("estilo.txt")) {
-                    if (r != null) readStyle(new BufferedReader(r), st);
-                }
-                packaged = new PhraseBank(ev, st);
+                packaged = new PhraseBank(ev);
                 System.out.println("[FRASES] Banco cargado: " + ev.size() + " eventos.");
             } catch (IOException e) {
                 System.out.println("[FRASES] No se pudo leer el banco: " + e.getMessage());
-                packaged = new PhraseBank(Map.of(), Map.of());
+                packaged = new PhraseBank(Map.of());
             }
         }
         return packaged;
@@ -78,11 +70,7 @@ public final class PhraseBank {
                 readEvents(r, ev);
             }
         }
-        Map<String, List<String>> st = new HashMap<>();
-        try (BufferedReader r = Files.newBufferedReader(dir.resolve("estilo.txt"), StandardCharsets.UTF_8)) {
-            readStyle(r, st);
-        }
-        return new PhraseBank(ev, st);
+        return new PhraseBank(ev);
     }
 
     private static Reader resource(String file) {
@@ -92,10 +80,6 @@ public final class PhraseBank {
 
     public Event event(String name) { return events.get(name); }
     public List<String> eventNames() { return List.copyOf(events.keySet()); }
-
-    public List<String> style(String type, String stage, String tone, String position) {
-        return style.getOrDefault(type + "|" + stage + "|" + tone + "|" + position, List.of());
-    }
 
     private static void readEvents(BufferedReader r, Map<String, Event> out) throws IOException {
         String name = null, tone = "neutro", section = null;
@@ -135,20 +119,4 @@ public final class PhraseBank {
         out.replaceAll((k, e) -> new Event(e.name(), e.tone(), Collections.unmodifiableMap(e.sections())));
     }
 
-    private static void readStyle(BufferedReader r, Map<String, List<String>> out) throws IOException {
-        String type = null, stage = null;
-        for (String line; (line = r.readLine()) != null; ) {
-            String l = line.strip();
-            if (l.startsWith("#")) continue;
-            if (l.startsWith("=== ")) { type = l.replace("=", "").trim(); continue; }
-            if (l.startsWith("--- ")) { stage = l.replaceAll("^-+\\s*|\\s*-+$", "").trim(); continue; }
-            int bar = l.indexOf(" | ");
-            if (bar > 0 && type != null && stage != null) {
-                String[] key = l.substring(0, bar).trim().split("\\.");
-                if (key.length != 2) continue;
-                out.computeIfAbsent(type + "|" + stage + "|" + key[0] + "|" + key[1], k -> new ArrayList<>())
-                        .add(l.substring(bar + 3).trim());
-            }
-        }
-    }
 }

@@ -1,13 +1,11 @@
 package org.example.chat;
 
-import java.text.Normalizer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,17 +15,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Elige la reacción de UN Digimon con las reglas del banco (LEEME.txt y estilo.txt del borrador):
- * [apertura del Activity Type] + [frase del evento según etapa y atributo] + [cierre del Activity Type].
+ * Elige la reacción de UN Digimon con las reglas del banco (LEEME.txt del borrador): la frase del evento según su
+ * etapa y su atributo. Sin aperturas ni cierres por Activity Type (se quitaron el 2026-10-22, decisión del usuario:
+ * no convencían).
  *
  * - Frases de "primera vez": la primera vez de cada evento en su vida (sección según su etapa); dicha
  *   una, el grupo entero queda bloqueado y se guarda en su cápsula ({@link Memory}).
  * - Nunca repite una de las últimas 5 frases de ese evento.
- * - Estilo con la probabilidad de su Activity Type; en Ultimate la mitad y solo apertura.
- * - Nada se repite: sin apertura si la frase ya empieza con una exclamación, sin apertura ni cierre
- *   que repita una palabra de la frase, y la misma pieza no vuelve en las 3 reacciones siguientes.
+ * - Estoico: prefiere las frases más cortas del evento.
  * - Una frase con una variable que no se tiene ({rival} sin especie leída...) no se usa.
- * - El programa pone la mayúscula al inicio de cada oración ("la Calculadora abierta." -> "La...").
+ * - El programa pone la mayúscula al inicio de cada oración.
  */
 public final class PhrasePicker {
 
@@ -46,32 +43,22 @@ public final class PhrasePicker {
         };
     }
 
-    private static final String[] TYPES = {"estoico", "activo", "normal", "interior", "perezoso"};
-    private static final double[] STYLE_CHANCE = {0.10, 0.40, 0.25, 0.35, 0.30};
     /** La primera derrota es un solo grupo para todos los modos (decisión del usuario, 2026-10-06). */
     private static final Map<String, String> SHARED_FIRST = Map.of("arena_derrota", "derrota");
     /** Eventos que se repiten mucho: a veces se queda callado (nunca en su primera vez). */
     private static final Set<String> MAY_STAY_SILENT = Set.of("victoria", "derrota", "empate", "arena_victoria", "arena_derrota");
     private static final double SILENCE_CHANCE = 0.2;
 
-    private static final Set<String> INTERJECTIONS = Set.of(
-            "ja", "je", "jeje", "ji", "jiji", "tsk", "hmph", "hmm", "mm", "mmm", "bah", "uf", "uy", "ay", "uh",
-            "uuh", "oh", "ooh", "grr", "snif", "rayos", "diablos", "demonios", "maldicion", "yay", "ups", "ey",
-            "oye", "eh", "mira", "vaya", "wooo", "yoh", "ding", "ta-da", "la-la-la", "pi", "tic", "siii",
-            "yaaay", "wiii", "argh", "aaah", "uaaah", "uaah", "ah");
-    private static final Set<String> STOP_WORDS = Set.of("que", "con", "por", "los", "las", "una", "uno", "del", "sin", "muy");
     private static final Pattern VARIABLE = Pattern.compile("\\{([^{}]+)}");
 
     private final PhraseBank bank;
     private final String attr;         // "vacuna", "data", "virus", "free" o null
     private final String stage;        // "nino", "maduro" o "maduro 2"
-    private final String styleStage;   // "nino" o "maduro"
+    private final String firstTimeStage;   // "nino" o "maduro"
     private final int activityType;
     private final Random rnd;
     private final Memory memory;
     private final Map<String, Deque<String>> lastPerEvent = new HashMap<>();
-    private final Deque<List<String>> lastStyle = new ArrayDeque<>();
-    private boolean forceStyle = false;
 
     /**
      * @param attribute    de la DIM: 1 Virus, 2 Data, 3 Vaccine, 4 Free (otro = solo frases "todos")
@@ -88,16 +75,10 @@ public final class PhrasePicker {
             default -> null;
         };
         this.stage = dimStage <= 2 ? "nino" : dimStage <= 4 ? "maduro" : "maduro 2";
-        this.styleStage = dimStage <= 2 ? "nino" : "maduro";
+        this.firstTimeStage = dimStage <= 2 ? "nino" : "maduro";
         this.activityType = Math.max(0, Math.min(4, activityType));
         this.rnd = rnd;
         this.memory = memory;
-    }
-
-    /** Muestras para revisar el banco: toda reacción lleva estilo si alguna pieza lo permite. */
-    public PhrasePicker forceStyle() {
-        this.forceStyle = true;
-        return this;
     }
 
     public boolean isUltimate() { return stage.equals("maduro 2"); }
@@ -112,8 +93,8 @@ public final class PhrasePicker {
         return pickDetailed(event, vars, false).map(Reaction::text);
     }
 
-    /** Una reacción con sus piezas (las muestras marcan qué es estilo). */
-    public record Reaction(String text, String opener, String phrase, String closer, boolean firstTime) {}
+    /** Una reacción: el texto final y si fue su frase de "primera vez". */
+    public record Reaction(String text, boolean firstTime) {}
 
     public Optional<Reaction> pickDetailed(String event, Map<String, String> vars, boolean maySilence) {
         PhraseBank.Event ev = bank.event(event);
@@ -130,8 +111,7 @@ public final class PhrasePicker {
             memory.saveFirstTimeDone(done);
             pool = candidates(groupEvent, firstTimeSection(groupEvent), vars);
             first = !pool.isEmpty();
-        } else if (maySilence && MAY_STAY_SILENT.contains(event) && !forceStyle && rnd.nextDouble() < SILENCE_CHANCE) {
-            recordStyle(List.of());
+        } else if (maySilence && MAY_STAY_SILENT.contains(event) && rnd.nextDouble() < SILENCE_CHANCE) {
             return Optional.empty();
         }
         if (pool.isEmpty()) {
@@ -158,49 +138,16 @@ public final class PhrasePicker {
         String template = fresh.get(rnd.nextInt(fresh.size()));
         last.addLast(template);
         if (last.size() > 5) last.removeFirst();
-        String phrase = fill(template, vars);
-
-        String opener = null, closer = null;
-        List<String> openers = eligibleStyle(bank.style(TYPES[activityType], styleStage, ev.tone(), "antes"), phrase, true);
-        List<String> closers = isUltimate() ? List.of()
-                : eligibleStyle(bank.style(TYPES[activityType], styleStage, ev.tone(), "despues"), phrase, false);
-        if (forceStyle) {
-            int choice = rnd.nextInt(3); // 0 apertura, 1 cierre, 2 las dos
-            if ((choice != 1 || closers.isEmpty()) && !openers.isEmpty()) opener = openers.get(rnd.nextInt(openers.size()));
-            if ((choice != 0 || opener == null) && !closers.isEmpty()) closer = closers.get(rnd.nextInt(closers.size()));
-        } else {
-            double chance = STYLE_CHANCE[activityType] * (isUltimate() ? 0.5 : 1.0);
-            if (!openers.isEmpty() && rnd.nextDouble() < chance) opener = openers.get(rnd.nextInt(openers.size()));
-            if (!closers.isEmpty() && rnd.nextDouble() < chance) closer = closers.get(rnd.nextInt(closers.size()));
-        }
-        if (opener != null && closer != null && sharesWord(opener, closer)) closer = null;
-        List<String> used = new ArrayList<>();
-        if (opener != null) used.add(opener);
-        if (closer != null) used.add(closer);
-        recordStyle(used);
-
-        String body = phrase;
-        if (opener != null && opener.endsWith(",")) {
-            if (!template.startsWith("{")) body = lowerFirstLetter(body); // "Oye, hecho."
-        } else if (opener != null) {
-            body = upperFirstLetter(body); // "Mm... La Calculadora abierta." (la frase empieza su oración)
-        }
-        String text = (opener == null ? "" : opener + " ") + body + (closer == null ? "" : " " + closer);
-        return Optional.of(new Reaction(capitalizeSentences(text), opener, phrase, closer, first));
+        return Optional.of(new Reaction(capitalizeSentences(fill(template, vars)), first));
     }
 
-
-    private void recordStyle(List<String> used) {
-        lastStyle.addLast(used);
-        if (lastStyle.size() > 3) lastStyle.removeFirst();
-    }
 
     private static boolean hasFirstTime(PhraseBank.Event ev) {
         return ev.sections().keySet().stream().anyMatch(s -> s.startsWith("primera vez"));
     }
 
     private String firstTimeSection(PhraseBank.Event ev) {
-        String specific = "primera vez " + styleStage;
+        String specific = "primera vez " + firstTimeStage;
         return ev.sections().containsKey(specific) ? specific : "primera vez";
     }
 
@@ -231,63 +178,7 @@ public final class PhrasePicker {
         return sb.toString();
     }
 
-    private List<String> eligibleStyle(List<String> pieces, String phrase, boolean opener) {
-        List<String> out = new ArrayList<>();
-        if (opener && INTERJECTIONS.contains(firstWord(phrase))) return out; // regla 1
-        Set<String> recent = new LinkedHashSet<>();
-        lastStyle.forEach(recent::addAll);                                   // regla 3
-        for (String s : pieces) {
-            if (recent.contains(s) || sharesWord(s, phrase)) continue;      // regla 2
-            out.add(s);
-        }
-        return out;
-    }
-
     // ---------------------------------------------------------------- texto
-
-    static String normalize(String s) {
-        return Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}", "");
-    }
-
-    static String firstWord(String s) {
-        for (String w : normalize(s).split("[^a-z-]+")) {
-            if (!w.isEmpty() && !w.equals("-")) return w;
-        }
-        return "";
-    }
-
-    /** Palabras de 3+ letras sin las muy comunes, por su raíz (5 primeras letras: aprenderé = aprendo). */
-    private static List<String> roots(String s) {
-        List<String> out = new ArrayList<>();
-        for (String w : normalize(s).split("[^a-z]+")) {
-            if (w.length() >= 3 && !STOP_WORDS.contains(w)) out.add(w.length() >= 5 ? w.substring(0, 5) : w);
-        }
-        return out;
-    }
-
-    static boolean sharesWord(String a, String b) {
-        List<String> rb = roots(b);
-        for (String w : roots(a)) if (rb.contains(w)) return true;
-        return false;
-    }
-
-    private static String upperFirstLetter(String s) {
-        for (int i = 0; i < s.length(); i++) {
-            if (Character.isLetter(s.charAt(i))) {
-                return s.substring(0, i) + Character.toUpperCase(s.charAt(i)) + s.substring(i + 1);
-            }
-        }
-        return s;
-    }
-
-    private static String lowerFirstLetter(String s) {
-        for (int i = 0; i < s.length(); i++) {
-            if (Character.isLetter(s.charAt(i))) {
-                return s.substring(0, i) + Character.toLowerCase(s.charAt(i)) + s.substring(i + 1);
-            }
-        }
-        return s;
-    }
 
     /**
      * Mayúscula al inicio y tras cada fin de oración (". ", "! ", "? "), sin tocar lo que sigue a unos

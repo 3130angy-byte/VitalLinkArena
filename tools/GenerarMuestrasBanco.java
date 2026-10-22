@@ -39,9 +39,8 @@ public class GenerarMuestrasBanco {
         for (int a = 0; a < ATTR_NAMES.length; a++) {
             StringBuilder sb = new StringBuilder();
             sb.append("# MUESTRAS DEL BANCO — ").append(ATTR_NAMES[a].toUpperCase()).append(" (generado, no editar: se rehace solo)\n")
-              .append("# 50 reacciones al azar por perfil, con el mismo código del programa. Entre « » va lo que agrega\n")
-              .append("# el Activity Type (estilo.txt). Aquí TODAS llevan estilo para que veas cómo combina; en el juego\n")
-              .append("# sale con su probabilidad (estoico 10 %, activo 40 %...; en Ultimate la mitad y solo apertura).\n")
+              .append("# 50 reacciones al azar por perfil, con el mismo código del programa (sin aperturas ni cierres por\n")
+              .append("# Activity Type: se quitaron el 2026-10-22; el estoico solo prefiere las frases más cortas).\n")
               .append("# Cada perfil simula una vida: la 1.ª vez de un evento sale su frase de \"primera vez\" (marcada).\n")
               .append("# Variables de ejemplo: ").append(new TreeMap<>(VARS)).append("\n");
             for (int s = 0; s < STAGE_NAMES.length; s++) {
@@ -49,22 +48,15 @@ public class GenerarMuestrasBanco {
                     sb.append("\n=== ").append(ATTR_NAMES[a].toUpperCase()).append(" · ").append(STAGE_NAMES[s].toUpperCase())
                       .append(" · ").append(TYPES[t].toUpperCase()).append(" ===\n");
                     Random rnd = new Random((ATTR_NAMES[a] + STAGE_NAMES[s] + TYPES[t]).hashCode());
-                    PhrasePicker picker = new PhrasePicker(bank, ATTR_CODES[a], STAGE_CODES[s], t, rnd, PhrasePicker.inMemory())
-                            .forceStyle();
+                    PhrasePicker picker = new PhrasePicker(bank, ATTR_CODES[a], STAGE_CODES[s], t, rnd, PhrasePicker.inMemory());
                     int n = 0;
                     for (int guard = 0; n < PER_PROFILE && guard < 5000; guard++) {
                         String event = events.get(rnd.nextInt(events.size()));
                         var r = picker.pickDetailed(event, VARS, false);
-                        if (r.isEmpty() || (r.get().opener() == null && r.get().closer() == null && !r.get().firstTime())) continue;
+                        if (r.isEmpty()) continue;
                         n++;
-                        String text = r.get().text();
-                        if (r.get().opener() != null) text = text.replaceFirst(java.util.regex.Pattern.quote(r.get().opener()), "«" + r.get().opener() + "»");
-                        if (r.get().closer() != null) {
-                            int at = text.lastIndexOf(r.get().closer());
-                            if (at >= 0) text = text.substring(0, at) + "«" + r.get().closer() + "»";
-                        }
                         String label = event + (r.get().firstTime() ? " · 1ª vez" : "");
-                        sb.append(String.format("%2d. %-26s %s%n", n, "[" + label + "]", text));
+                        sb.append(String.format("%2d. %-26s %s%n", n, "[" + label + "]", r.get().text()));
                     }
                 }
             }

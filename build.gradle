@@ -64,7 +64,7 @@ tasks.withType(JavaCompile).configureEach {
 // (formato en su LEEME.txt) y viaja dentro del programa como recurso /banco.
 processResources {
     from('banco-frases-borrador') {
-        include 'peleas.txt', 'compania.txt', 'estilo.txt'
+        include 'peleas.txt', 'compania.txt'
         into 'banco'
     }
     exclude '**/*.rar', '**/*.zip', '**/*.7z'

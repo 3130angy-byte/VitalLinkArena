@@ -16,7 +16,6 @@ Archivos
 --------
   peleas.txt      victoria, derrota, empate, arena_victoria, arena_derrota
   compania.txt    aparecer, pensamiento, ir_a_sala, volver_de_sala, retiro, reemplazo
-  estilo.txt      lo que agrega el Activity Type (antes y después de la frase)
 
 Cuándo lo dice
 --------------
@@ -42,7 +41,6 @@ Formato
   todos | texto               sirve para cualquier atributo
 
   Una línea por frase. Para agregar frases, copia una línea y cámbiala.
-  En estilo.txt hay solo dos etapas: nino = Child y maduro = Adult, Perfect y Ultimate.
   VitalLink Arena no tiene Baby I ni Baby II (no se pueden traer del VB), por eso no hay
   "bebe" ni el atributo "null" (que solo existe en los Baby).
 
@@ -75,32 +73,16 @@ Variables (el programa las reemplaza; si no tiene el dato, NO usa esa frase)
   Mayúsculas: el programa pone la mayúscula al inicio de cada oración, así que una variable puede
   empezar la frase ("{rival} fue duro." -> "Dynasmon fue duro."). Tras puntos suspensivos no la
   pone ("Snif... no entiendo" queda así).
-Cómo se arma una reacción (por eso no hacen falta miles de líneas)
+Cómo se arma una reacción
 -------------------------
-  [apertura del Activity Type] + [frase del evento según etapa y atributo] + [cierre del Activity Type]
-
-  - La frase del evento lleva la PERSONALIDAD (atributo) y la MADUREZ (etapa).
-  - La apertura y el cierre llevan la ENERGÍA (Activity Type), ver estilo.txt. No siempre se
-    usan: cada Activity Type tiene su probabilidad (estoico 10 %, activo 40 %...), para que no
-    suene a fórmula.
-  - Estoico: usa la frase más corta y casi nunca agrega nada. Activo: es el que más agrega.
-  - Ultimate: la mitad de esa probabilidad y SOLO apertura, nunca cierre (sus frases ya terminan
-    fuertes; el cierre las contradecía).
-  - Nada se repite, en ninguna etapa (detalle en estilo.txt): sin apertura si la frase ya empieza
-    con una exclamación ("¡Ja! Je..."), sin apertura ni cierre que repita una palabra de la frase
-    ("Snif... no entiendo. ...snif."), y la misma apertura o cierre no vuelve en 3 reacciones.
+  La frase del evento según su ETAPA y su ATRIBUTO, tal cual está en el banco.
+  Ya no se le agregan aperturas ni cierres según el Activity Type (se quitaron el 2026-10-22:
+  no convencían).
+  - Estoico: prefiere las frases más cortas del evento.
   - Nunca repite una frase de las últimas 5 de ese evento.
   - No reacciona SIEMPRE: en eventos que se repiten mucho, a veces se queda callado.
 
-  Ejemplos de una victoria:
-    Virus Adult Activo:        "¡Ja! " + "Que tome nota quien quiera retarme." + " ¡Vamos por más!"
-    MagnaKidmon (Virus, Ultimate, Activo), sin cierre:
-                               "¡Eso! " + "Victoria. Era inevitable, como siempre."
-    Data Perfect Estoico:      "Victoria. Su patrón de ataque era predecible desde la primera ronda."
-    Virus Child Activo, la frase ya empieza con "Je", así que no lleva apertura:
-                               "Je. Ni siquiera tuve que esforzarme." + " ¡Otra!"
-
-Reglas de estilo que se acordaron
+Reglas de las frases que se acordaron
 ---------------------------------
   - Virus y Free pueden usar exclamaciones SUAVES (¡Rayos!, ¡Demonios!, Maldición, Bah, Qué
     fastidio), nunca lisuras de verdad y nunca hacia el usuario. Los demás atributos no las usan.
